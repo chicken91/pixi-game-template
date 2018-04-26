@@ -1,10 +1,4 @@
 {
-    "include": [
-        "src"
-    ],
-    "exclude": [
-        "data/templates"
-    ],
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
@@ -17,6 +11,13 @@
         "removeComments": false,
         "noEmitHelpers": true,
         "importHelpers": true,
-        "noImplicitAny": false
-    }
+        "noImplicitAny": false,
+        "experimentalDecorators": true
+    },
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "data/templates"
+    ]
 }
