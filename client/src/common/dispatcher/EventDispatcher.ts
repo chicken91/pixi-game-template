@@ -1,6 +1,6 @@
 import {isNullOrUndefined} from "util";
 
-export type ListenerCallback = (...args: Array<any>) => void
+export type ListenerCallback = (arg: any) => void
 
 export class EventDispatcher {
     private _listeners: { [key: string]: Array<ListenerCallback> } = {};
@@ -13,14 +13,14 @@ export class EventDispatcher {
         this._listeners[message].push(listenerCallback);
     }
 
-    public dispatch(message: string, ...args: Array<any>) {
+    public dispatch(message: string, arg?: any) {
         let callbacks: Array<ListenerCallback> = this._listeners[message];
-        isNullOrUndefined(callbacks) || this.activateCallBacks(callbacks, args);
+        isNullOrUndefined(callbacks) || this.activateCallBacks(callbacks, arg);
     }
 
-    private activateCallBacks(callbacks: Array<ListenerCallback>, ...args: Array<any>) {
+    private activateCallBacks(callbacks: Array<ListenerCallback>, arg: any) {
         for (let callback of callbacks) {
-            callback(args);
+            callback(arg);
         }
     }
 

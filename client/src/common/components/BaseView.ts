@@ -1,21 +1,22 @@
 import Container = PIXI.Container;
 import {EventDispatcher, ListenerCallback} from "../dispatcher/EventDispatcher";
+import {Unit} from "./Unit";
+import {GameData} from "../../game/data/GameData";
 
-export abstract class BaseView {
+export abstract class BaseView extends Unit {
     private _view: Container;
-    private _dispatcher: EventDispatcher;
 
-    constructor() {
+    constructor(dispatcher: EventDispatcher, data: GameData) {
+        super(dispatcher, data);
         this._view = new Container();
     }
 
-    public static initialize(entryViewType: new () => BaseView, dispatcher: EventDispatcher, parent: Container) {
-        let entryView: BaseView = new entryViewType();
-        entryView.setup(dispatcher, parent);
+    public static initialize(entryViewType: new (dispatcher: EventDispatcher, data: GameData) => BaseView, dispatcher: EventDispatcher, data: GameData, parent: Container) {
+        let entryView: BaseView = new entryViewType(dispatcher, data);
+        entryView.setup(parent);
     }
 
-    public setup(dispatcher: EventDispatcher, parent?: Container): BaseView {
-        this._dispatcher = dispatcher;
+    public setup(parent: Container): BaseView {
         parent && parent.addChild(this._view);
         this.setupChildren(this._view);
         this.addListeners();
@@ -32,14 +33,6 @@ export abstract class BaseView {
 
     protected addChild(child: BaseView) {
         this._view.addChild(child._view);
-    }
-
-    protected addListener(message: string, listenerCallback: ListenerCallback) {
-        this._dispatcher.addListener(message, listenerCallback)
-    }
-
-    protected fireEvent(message: string, ...args: Array<any>) {
-        this._dispatcher.dispatch(message, args)
     }
 
     get view(): Container {

@@ -10,8 +10,11 @@ export class RenderManager {
         this._dispatcher = dispatcher;
         this._renderer = renderer;
         this.initCanvas();
-        this.initResizeListener();
         PIXI.ticker.shared.add(this.onRender.bind(this), this);
+    }
+
+    public resizeCanvas(width: number, height: number) {
+        this._renderer.resize(width, height);
     }
 
     private initCanvas() {
@@ -22,15 +25,6 @@ export class RenderManager {
             background: "#bde6eb"
         });
         document.body.appendChild(this._renderer.view);
-    }
-
-    private initResizeListener() {
-        window.addEventListener("resize", this.onResize.bind(this));
-    }
-
-    private onResize() {
-        this._renderer.resize(window.innerWidth, window.innerHeight);
-        this._dispatcher.dispatch(EventType.ON_RESIZE, this._renderer.screen);
     }
 
     private onRender() {
