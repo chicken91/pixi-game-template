@@ -6,7 +6,8 @@ export class GameActivator {
         let context: Context = new Context(new Application({
             width: window.innerWidth,
             height: window.innerHeight,
-            autoStart: false
+            autoStart: false,
+            autoResize: true
         }));
         context.startGame();
     }

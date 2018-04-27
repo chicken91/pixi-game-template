@@ -6,7 +6,7 @@ import {Global} from "../../common/global/Global";
 
 export class MainScreenView extends BaseView {
     protected _text: Text;
-    protected _delta: number = 1;
+    protected _delta: number = 2;
 
     protected addListeners(): void {
         super.addListeners();
@@ -28,11 +28,11 @@ export class MainScreenView extends BaseView {
 
     private onRender() {
         if (this._text.x >= Global.renderManager.canvas.width) {
-            this._delta = -1;
+            this._delta = -2;
         }
 
         if (this._text.x <= 0) {
-            this._delta = 1;
+            this._delta = 2;
         }
         this._text.x += this._delta;
     }

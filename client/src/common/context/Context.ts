@@ -22,7 +22,7 @@ export class Context {
     }
 
     private init() {
-        Global.renderManager = new RenderManager(this._application.view, this._dispatcher);
+        Global.renderManager = new RenderManager(this._application.renderer, this._dispatcher);
 
         BaseView.initialize(MainScreenView, this._dispatcher, this._application.stage);
     }
