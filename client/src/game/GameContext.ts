@@ -7,17 +7,16 @@ import {BaseView} from "../common/components/BaseView";
 import {EventType} from "../common/type/EventType";
 import {GameData} from "./data/GameData";
 import {ResizeService} from "./service/ResizeService";
-import {Unit} from "../common/components/Unit";
 
 export class GameContext {
     private _dispatcher: EventDispatcher = new EventDispatcher();
     private _data: GameData = new GameData();
     private _application: Application;
 
-    constructor(application: Application) {
-        this._application = application;
+    constructor() {
         this._dispatcher = new EventDispatcher();
-        this.init();
+        this.initApplication();
+        this.initGame();
     }
 
     public startGame() {
@@ -25,12 +24,27 @@ export class GameContext {
         this._dispatcher.dispatch(EventType.START_GAME);
     }
 
-    private init() {
+    private initApplication() {
+        this._application = new Application({
+            width: this._data.sizeData.gameWidth,
+            height: this._data.sizeData.gameHeight,
+            autoStart: false,
+            autoResize: true,
+            transparent: false,
+            backgroundColor: 0x061639,
+            resolution: window.devicePixelRatio
+        });
+    }
+
+    private initGame() {
         Global.renderManager = new RenderManager(this._application.renderer, this._dispatcher);
 
-        let services = [ResizeService];
-        for (let service of services) {
-            new service(this._dispatcher, this._data).setup(this._application.stage);
+        let serviceDataList = [
+            {service: ResizeService, parameters: this._application.stage}
+        ];
+        for (let serviceData of serviceDataList) {
+            let service = new serviceData.service(this._dispatcher, this._data);
+            service.setup(serviceData.parameters);
         }
 
         BaseView.initialize(MainScreenView, this._dispatcher, this._data, this._application.stage);

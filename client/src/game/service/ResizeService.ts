@@ -13,9 +13,10 @@ export class ResizeService extends Unit {
         this.initResizeListener();
     }
 
-    public setup(...args: Array<any>) {
-        this._stage = args[0];
+    setup(stage: Container): ResizeService {
+        this._stage = stage;
         this.onResize();
+        return this;
     }
 
     private initResizeListener() {
@@ -23,15 +24,21 @@ export class ResizeService extends Unit {
     }
 
     private onResize() {
-        Global.renderManager.resizeCanvas(window.innerWidth, window.innerHeight);
-        this._stage.width = window.innerWidth;
-        this._stage.height = window.innerHeight;
+        if (window.innerWidth > window.innerHeight) {
+            this.data.sizeData.screenSize.x = Math.round(Math.min(window.innerHeight * this.data.sizeData.gameRatio, window.innerWidth));
+            this.data.sizeData.screenSize.y = Math.round(Math.min(this.data.sizeData.screenSize.x / this.data.sizeData.gameRatio, window.innerHeight));
+        } else {
+            this.data.sizeData.screenSize.y = Math.round(Math.min(window.innerWidth / this.data.sizeData.gameRatio, window.innerHeight));
+            this.data.sizeData.screenSize.x = Math.round(this.data.sizeData.screenSize.y * this.data.sizeData.gameRatio);
+        }
 
-        this.data.sizeData.screenSize.x = window.innerWidth;
-        this.data.sizeData.screenSize.y = window.innerHeight;
+        this.data.sizeData.scale = Math.min(window.innerWidth / this.data.sizeData.gameWidth, window.innerHeight / this.data.sizeData.gameHeight);
 
-        this.data.sizeData.screenFactor.x =  window.innerWidth / this.data.sizeData.gameWidth;
+        this.data.sizeData.screenFactor.x = window.innerWidth / this.data.sizeData.gameWidth;
         this.data.sizeData.screenFactor.y = window.innerHeight / this.data.sizeData.gameHeight;
+
+        Global.renderManager.resizeCanvas(this.data.sizeData.screenSize.x, this.data.sizeData.screenSize.y);
+        this._stage.scale.set(this.data.sizeData.scale);
 
         this.fireEvent(EventType.ON_RESIZE, this.data.sizeData.screenSize);
     }

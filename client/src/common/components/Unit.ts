@@ -1,4 +1,3 @@
-import {BaseView} from "./BaseView";
 import {EventDispatcher, ListenerCallback} from "../dispatcher/EventDispatcher";
 import {GameData} from "../../game/data/GameData";
 
@@ -9,6 +8,10 @@ export abstract class Unit {
     constructor(dispatcher: EventDispatcher, data: GameData) {
         this._dispatcher = dispatcher;
         this._data = data;
+    }
+
+    public setup(parameters: any): Unit {
+        return this;
     }
 
     protected addListener(message: string, listenerCallback: ListenerCallback) {

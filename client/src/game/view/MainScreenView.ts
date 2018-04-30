@@ -1,50 +1,43 @@
 import Container = PIXI.Container;
-import Text = PIXI.Text;
+import Point = PIXI.Point;
+import Graphics = PIXI.Graphics;
 import {BaseView} from "../../common/components/BaseView";
 import {EventType} from "../../common/type/EventType";
-import {Global} from "../../common/global/Global";
-import {log} from "util";
-import Point = PIXI.Point;
 
 export class MainScreenView extends BaseView {
-    protected _text: Text;
-    protected _textPosition: Point = new Point(0, 0);
-    protected _delta: number = 2;
+    protected _ball: Graphics;
+    protected _delta: Point = new Point(2, 2);
 
     protected addListeners(): void {
         super.addListeners();
         this.addListener(EventType.START_GAME, this.onStartGame.bind(this));
         this.addListener(EventType.ON_RENDER, this.onRender.bind(this));
-        this.addListener(EventType.ON_RESIZE, this.onResize.bind(this));
     }
 
     setupChildren(parent: Container) {
-        //super.setupChildren(parent);
-        this._text = new Text('Hello World!', {fill: "#ffff61"});
-        this._text.visible = false;
-        this.view.addChild(this._text);
-
+        super.setupChildren(parent);
+        this._ball = new Graphics().beginFill(0xff3300).drawCircle(0, 0, 30).endFill();
+        this._ball.visible = false;
+        this.view.addChild(this._ball);
     }
 
     private onStartGame() {
-        this._text.visible = true;
+        this._delta = new Point(Math.round(Math.random() * 3) + 1, Math.round(Math.random() * 3) + 1);
+        this._ball.visible = true;
     }
 
     private onRender() {
-        if (this._textPosition.x >= this.data.sizeData.gameWidth) {
-            this._delta = -2;
+        if (this._ball.x > this.data.sizeData.gameWidth || this._ball.x < 0) {
+            this._delta.x *= -1;
         }
 
-        if (this._textPosition.x <= 0) {
-            this._delta = 2;
+        if (this._ball.y > this.data.sizeData.gameHeight || this._ball.y < 0) {
+            this._delta.y *= -1;
         }
-        this._textPosition.x += this._delta;
 
-        this.onResize();
-    }
+        this._ball.x += this._delta.x;
+        this._ball.y += this._delta.y;
 
-    private onResize() {
-        this._text.x = this._textPosition.x * this.data.sizeData.screenFactor.x;
-        this._text.y = this._textPosition.y * this.data.sizeData.screenFactor.y;
+
     }
 }

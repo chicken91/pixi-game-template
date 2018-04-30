@@ -14,6 +14,12 @@ export class RenderManager {
     }
 
     public resizeCanvas(width: number, height: number) {
+        let canvasStyle = this._renderer.view.style;
+        canvasStyle.left = (window.innerWidth / 2 - width / 2) + "px";
+        canvasStyle.right = (window.innerWidth / 2 + width / 2) + "px";
+        canvasStyle.top = (window.innerHeight / 2 - height / 2) + "px";
+        canvasStyle.bottom = (window.innerHeight / 2 + height / 2) + "px";
+
         this._renderer.resize(width, height);
     }
 
