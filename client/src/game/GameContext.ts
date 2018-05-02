@@ -2,7 +2,7 @@ import Application = PIXI.Application;
 import {EventDispatcher} from "../common/dispatcher/EventDispatcher";
 import {Global} from "../common/global/Global";
 import {RenderManager} from "../common/managers/RenderManager";
-import {MainScreenView} from "./view/MainScreenView";
+import {MainView} from "./view/MainView";
 import {BaseView} from "../common/components/BaseView";
 import {EventType} from "../common/type/EventType";
 import {GameData} from "./data/GameData";
@@ -47,6 +47,6 @@ export class GameContext {
             service.setup(serviceData.parameters);
         }
 
-        BaseView.initialize(MainScreenView, this._dispatcher, this._data, this._application.stage);
+        BaseView.initialize(MainView, this._dispatcher, this._data, this._application.stage);
     }
 }

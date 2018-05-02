@@ -25,4 +25,8 @@ export abstract class Unit {
     get data(): GameData {
         return this._data;
     }
+
+    get dispatcher(): EventDispatcher {
+        return this._dispatcher;
+    }
 }

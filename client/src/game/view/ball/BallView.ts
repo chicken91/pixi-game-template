@@ -1,17 +1,17 @@
-import Container = PIXI.Container;
+import {BaseView} from "../../../common/components/BaseView";
+import {EventType} from "../../../common/type/EventType";
 import Point = PIXI.Point;
 import Graphics = PIXI.Graphics;
-import {BaseView} from "../../common/components/BaseView";
-import {EventType} from "../../common/type/EventType";
+import Container = PIXI.Container;
 
-export class MainScreenView extends BaseView {
+export class BallView extends BaseView {
     protected _ball: Graphics;
     protected _delta: Point = new Point(2, 2);
 
     protected addListeners(): void {
         super.addListeners();
-        this.addListener(EventType.START_GAME, this.onStartGame.bind(this));
         this.addListener(EventType.ON_RENDER, this.onRender.bind(this));
+        this.addListener(EventType.START_GAME, this.onStartGame.bind(this));
     }
 
     setupChildren(parent: Container) {
@@ -37,7 +37,5 @@ export class MainScreenView extends BaseView {
 
         this._ball.x += this._delta.x;
         this._ball.y += this._delta.y;
-
-
     }
 }

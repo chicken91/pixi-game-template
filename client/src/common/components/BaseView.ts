@@ -1,23 +1,24 @@
 import Container = PIXI.Container;
-import {EventDispatcher, ListenerCallback} from "../dispatcher/EventDispatcher";
+import {EventDispatcher} from "../dispatcher/EventDispatcher";
 import {Unit} from "./Unit";
 import {GameData} from "../../game/data/GameData";
+import {isNullOrUndefined} from "util";
 
 export abstract class BaseView extends Unit {
     private _view: Container;
 
-    constructor(dispatcher: EventDispatcher, data: GameData) {
+    constructor(dispatcher: EventDispatcher, data: GameData, view?: Container) {
         super(dispatcher, data);
-        this._view = new Container();
+        this._view = view ? view : new Container();
     }
 
-    public static initialize(entryViewType: new (dispatcher: EventDispatcher, data: GameData) => BaseView, dispatcher: EventDispatcher, data: GameData, parent: Container) {
-        let entryView: BaseView = new entryViewType(dispatcher, data);
-        entryView.setup(parent);
+    public static initialize(entryViewType: new (dispatcher: EventDispatcher, data: GameData, view: Container) => BaseView, dispatcher: EventDispatcher, data: GameData, initView: Container) {
+        let entryView: BaseView = new entryViewType(dispatcher, data, initView);
+        entryView.setup(null);
     }
 
     public setup(parent: Container): BaseView {
-        parent && parent.addChild(this._view);
+        !isNullOrUndefined(parent) && parent.addChild(this._view);
         this.setupChildren(this._view);
         this.addListeners();
         return this;
