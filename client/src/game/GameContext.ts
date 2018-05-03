@@ -7,6 +7,7 @@ import {BaseView} from "../common/components/BaseView";
 import {EventType} from "../common/type/EventType";
 import {GameData} from "./data/GameData";
 import {ResizeService} from "./service/ResizeService";
+import {SizeData} from "./data/size/SizeData";
 
 export class GameContext {
     private _dispatcher: EventDispatcher = new EventDispatcher();
@@ -26,8 +27,8 @@ export class GameContext {
 
     private initApplication() {
         this._application = new Application({
-            width: this._data.sizeData.gameWidth,
-            height: this._data.sizeData.gameHeight,
+            width: SizeData.GAME_WIDTH,
+            height: SizeData.GAME_HEIGHT,
             autoStart: false,
             autoResize: true,
             transparent: false,

@@ -1,12 +1,10 @@
 import {BaseView} from "../../../common/components/BaseView";
 import {EventType} from "../../../common/type/EventType";
-import Point = PIXI.Point;
 import Graphics = PIXI.Graphics;
 import Container = PIXI.Container;
 
 export class BallView extends BaseView {
     protected _ball: Graphics;
-    protected _delta: Point = new Point(2, 2);
 
     protected addListeners(): void {
         super.addListeners();
@@ -16,26 +14,20 @@ export class BallView extends BaseView {
 
     setupChildren(parent: Container) {
         super.setupChildren(parent);
-        this._ball = new Graphics().beginFill(0xff3300).drawCircle(0, 0, 30).endFill();
+        this._ball = new Graphics().beginFill(0xff3300).drawCircle(0, 0, this.data.ball.radius).endFill();
         this._ball.visible = false;
         this.view.addChild(this._ball);
     }
 
     private onStartGame() {
-        this._delta = new Point(Math.round(Math.random() * 3) + 1, Math.round(Math.random() * 3) + 1);
+        this.data.ball.delta.set(Math.round(Math.random() * 3) + 1, Math.round(Math.random() * 3) + 1);
         this._ball.visible = true;
     }
 
     private onRender() {
-        if (this._ball.x > this.data.sizeData.gameWidth || this._ball.x < 0) {
-            this._delta.x *= -1;
-        }
+        this.data.ball.updatePosition();
 
-        if (this._ball.y > this.data.sizeData.gameHeight || this._ball.y < 0) {
-            this._delta.y *= -1;
-        }
-
-        this._ball.x += this._delta.x;
-        this._ball.y += this._delta.y;
+        this._ball.x = this.data.ball.position.x;
+        this._ball.y = this.data.ball.position.y;
     }
 }
