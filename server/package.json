@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "dist/index.js",
   "dependencies": {
     "body-parser": "1.18.3",
     "cors": "2.8.4",
@@ -20,6 +20,7 @@
     "passport-local": "1.0.0",
     "request": "2.88.0",
     "slug": "0.9.1",
-    "underscore": "1.9.0"
+    "underscore": "1.9.0",
+    "@types/express": "4.16.0"
   }
 }
