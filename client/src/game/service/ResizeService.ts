@@ -7,8 +7,8 @@ import {SizeData} from "../data/size/SizeData";
 
 export class ResizeService extends Unit {
 
-    constructor(dispatcher: EventDispatcher, data: GameData) {
-        super(dispatcher, data);
+    constructor() {
+        super();
         this.initResizeListener();
     }
 

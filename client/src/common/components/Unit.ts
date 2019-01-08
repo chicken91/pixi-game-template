@@ -1,16 +1,17 @@
 import {EventDispatcher, ListenerCallback} from "../dispatcher/EventDispatcher";
 import {GameData} from "../../game/data/GameData";
+import {Global} from "../global/Global";
 
 export abstract class Unit {
     private _dispatcher: EventDispatcher;
     private _data: GameData;
 
-    constructor(dispatcher: EventDispatcher, data: GameData) {
-        this._dispatcher = dispatcher;
-        this._data = data;
+    constructor() {
+        this._dispatcher = Global.dispatcher;
+        this._data = Global.data;
     }
 
-    public setup(parameters: any): Unit {
+    public setup(parameters?: any): Unit {
         return this;
     }
 

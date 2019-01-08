@@ -5,6 +5,7 @@ import Container = PIXI.Container;
 
 export class BallView extends BaseView {
     protected _ball: Graphics;
+    protected wild: Graphics;
 
     protected addListeners(): void {
         super.addListeners();
@@ -15,6 +16,10 @@ export class BallView extends BaseView {
     setupChildren(parent: Container) {
         super.setupChildren(parent);
         this._ball = new Graphics().beginFill(0xff3300).drawCircle(0, 0, this.data.ball.radius).endFill();
+        this._ball.visible = false;
+        this.view.addChild(this._ball);
+
+        this.wild = new Graphics().beginFill(0xff3300).drawCircle(0, 0, this.data.ball.radius).endFill();
         this._ball.visible = false;
         this.view.addChild(this._ball);
     }

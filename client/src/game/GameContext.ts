@@ -10,19 +10,16 @@ import {ResizeService} from "./service/ResizeService";
 import {SizeData} from "./data/size/SizeData";
 
 export class GameContext {
-    private _dispatcher: EventDispatcher = new EventDispatcher();
-    private _data: GameData = new GameData();
     private _application: Application;
 
     constructor() {
-        this._dispatcher = new EventDispatcher();
         this.initApplication();
         this.initGame();
     }
 
     public startGame() {
         this._application.start();
-        this._dispatcher.dispatch(EventType.START_GAME);
+        Global.dispatcher.dispatch(EventType.START_GAME);
     }
 
     private initApplication() {
@@ -38,16 +35,18 @@ export class GameContext {
     }
 
     private initGame() {
-        Global.renderManager = new RenderManager(this._application.renderer, this._dispatcher);
+        Global.dispatcher =  new EventDispatcher();
+        Global.data =  new GameData();
+        Global.renderManager = new RenderManager(this._application.renderer);
 
         let serviceDataList = [
             {service: ResizeService, parameters: this._application.stage}
         ];
         for (let serviceData of serviceDataList) {
-            let service = new serviceData.service(this._dispatcher, this._data);
-            service.setup(serviceData.parameters);
+            let service = new serviceData.service();
+            service.setup();
         }
 
-        BaseView.initialize(MainView, this._dispatcher, this._data, this._application.stage);
+        BaseView.initialize(MainView, this._application.stage);
     }
 }

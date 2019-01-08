@@ -1,13 +1,14 @@
 import {EventDispatcher} from "../dispatcher/EventDispatcher";
 import {EventType} from "../type/EventType";
 import SystemRenderer = PIXI.SystemRenderer;
+import {Global} from "../global/Global";
 
 export class RenderManager {
     private _dispatcher: EventDispatcher;
     private _renderer: SystemRenderer;
 
-    constructor(renderer: SystemRenderer, dispatcher: EventDispatcher) {
-        this._dispatcher = dispatcher;
+    constructor(renderer: SystemRenderer) {
+        this._dispatcher = Global.dispatcher;
         this._renderer = renderer;
         this.initCanvas();
         PIXI.ticker.shared.add(this.onRender.bind(this), this);

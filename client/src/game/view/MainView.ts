@@ -12,8 +12,8 @@ export class MainView extends BaseView {
 
     setupChildren(parent: Container) {
         super.setupChildren(parent);
-        this.addChild(new BallView(this.dispatcher, this.data).setup(parent));
-        this.addChild(new InteractionView(this.dispatcher, this.data).setup(parent));
+        this.addChild(new BallView().setup(parent));
+        this.addChild(new InteractionView().setup(parent));
         this.onResize();
     }
 
