@@ -19,9 +19,9 @@ export class BallView extends BaseView {
         this._ball.visible = false;
         this.view.addChild(this._ball);
 
-        this.wild = new Graphics().beginFill(0xff3300).drawCircle(0, 0, this.data.ball.radius).endFill();
-        this._ball.visible = false;
-        this.view.addChild(this._ball);
+        this.wild = new Graphics().beginFill(0xF0F017).drawRect(0, 0, 100, 100).endFill();
+        this.wild.visible = true;
+        this.view.addChild(this.wild);
     }
 
     private onStartGame() {

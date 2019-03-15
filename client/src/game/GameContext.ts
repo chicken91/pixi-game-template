@@ -29,7 +29,7 @@ export class GameContext {
             autoStart: false,
             autoResize: true,
             transparent: false,
-            backgroundColor: 0x061639,
+            backgroundColor: 0x000000,
             resolution: window.devicePixelRatio
         });
     }
