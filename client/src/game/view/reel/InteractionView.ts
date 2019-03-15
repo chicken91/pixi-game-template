@@ -28,12 +28,12 @@ export class InteractionView extends BaseView {
         let local: Point = event.data.getLocalPosition(this._interactionPanel);
 
 
-        this.data.ball.touchDelta.set(0, 0)
+        this.data.reel.touchDelta.set(0, 0)
     }
 
     private onClickCancel(event: InteractionEvent) {
         //let local: Point = event.data.getLocalPosition(this._interactionPanel);
 
-        this.data.ball.touchDelta.set(0, 0)
+        this.data.reel.touchDelta.set(0, 0)
     }
 }

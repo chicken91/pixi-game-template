@@ -1,7 +1,7 @@
 import Point = PIXI.Point;
 import {SizeData} from "../size/SizeData";
 
-export class BallData {
+export class ReelData {
     private _position: Point = new Point(0, 0);
     private _delta: Point = new Point(0, 0);
     private _touchDelta: Point = new Point(0, 0);

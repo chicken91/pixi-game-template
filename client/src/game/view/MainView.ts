@@ -1,8 +1,8 @@
 import Container = PIXI.Container;
 import {BaseView} from "../../common/components/BaseView";
 import {EventType} from "../../common/type/EventType";
-import {BallView} from "./ball/BallView";
-import {InteractionView} from "./ball/InteractionView";
+import {ReelView} from "./reel/ReelView";
+import {InteractionView} from "./reel/InteractionView";
 
 export class MainView extends BaseView {
     protected addListeners(): void {
@@ -12,7 +12,7 @@ export class MainView extends BaseView {
 
     setupChildren(parent: Container) {
         super.setupChildren(parent);
-        this.addChild(new BallView().setup(parent));
+        this.addChild(new ReelView().setup(parent));
         this.addChild(new InteractionView().setup(parent));
         this.onResize();
     }
