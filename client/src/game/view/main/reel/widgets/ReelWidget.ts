@@ -11,10 +11,11 @@ export class ReelWidget extends Container {
     protected readonly OFFSET_SYMBOLS_COUNT: number = (this.MAX_SYMBOL_COUNT - this.VISIBLE_SYMBOL_COUNT) / 2;
     protected readonly CELL_HEIGHT: number = 200;
     protected readonly UPDATE_SYMBOLS_POSITION: number = -this.CELL_HEIGHT * (this.OFFSET_SYMBOLS_COUNT - 1);
-    protected readonly SPINNING_SPEED: number = 5;
+    protected readonly SPINNING_SPEED: number = 8;
 
     protected symbolTextureIdList: Array<string> = [];
     protected symbolList: Array<Sprite> = [];
+    protected onStopCallback: () => void;
 
     constructor(symbolDataList: Array<IAssetsData>) {
         super();
@@ -23,35 +24,36 @@ export class ReelWidget extends Container {
         });
     }
 
-    public initWidget(): void {
+    public initWidget(onStopCallback: () => void): void {
         for (let index = 0; index < this.MAX_SYMBOL_COUNT; index++) {
             this.setupSymbol(this.getRandomTextureName(), index);
         }
         this.setupMask();
+        this.onStopCallback = onStopCallback;
     }
 
-    public onRender(reelData: ReelData): void {
-        switch (reelData.state) {
+    public onRender(reelState: number): void {
+        switch (reelState) {
             case ReelState.IDLE:
                 break;
             case ReelState.SPINNING:
-                this.updateSymbolsPosition(reelData);
+                this.updateSymbolsPosition(reelState);
                 break;
             case ReelState.STOPPING:
-                this.updateSymbolsPosition(reelData);
+                this.updateSymbolsPosition(reelState);
                 break;
         }
     }
 
-    protected updateSymbolsPosition(reelData: ReelData): void {
+    protected updateSymbolsPosition(reelState: number): void {
         for (let index = 0; index < this.symbolList.length; index++) {
             let symbolSprite = this.symbolList[index];
             symbolSprite.y += this.SPINNING_SPEED;
         }
         if (this.needSymbolsUpdate()) {
             this.updateSymbolsOnReel();
-            if (reelData.state === ReelState.STOPPING) {
-                reelData.state = ReelState.IDLE;
+            if (reelState === ReelState.STOPPING) {
+                this.onStopCallback();
             }
         }
 

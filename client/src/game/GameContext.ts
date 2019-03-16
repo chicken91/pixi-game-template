@@ -9,6 +9,7 @@ import {GameData} from "./data/GameData";
 import {ResizeService} from "./service/ResizeService";
 import {SizeData} from "./data/size/SizeData";
 import {LoadController} from "./controller/load/LoadController";
+import {ReelController} from "./controller/reel/ReelController";
 
 export class GameContext {
     private _application: Application;
@@ -43,7 +44,8 @@ export class GameContext {
         let unitList = [
             ResizeService,
 
-            LoadController
+            LoadController,
+            ReelController
         ];
         for (let unit of unitList) {
             let unitObject = new unit();

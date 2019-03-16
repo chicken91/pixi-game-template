@@ -4,6 +4,7 @@ import {EventType} from "../../../../common/type/EventType";
 import {SpriteView} from "../../../../common/components/SpriteView";
 import {Resources} from "../../../../common/type/Resources";
 import {ReelWidget} from "./widgets/ReelWidget";
+import {ReelState} from "../../../../common/type/ReelState";
 
 export class ReelView extends SpriteView {
     protected readonly BASE_WIDTH: number = 200;
@@ -16,6 +17,8 @@ export class ReelView extends SpriteView {
         super.addListeners();
         this.addListener(EventType.ON_RENDER, this.onRender.bind(this));
         this.addListener(EventType.ON_RESIZE, this.onResize.bind(this));
+        this.addListener(EventType.START_REEL_SPIN, this.onStartReelSpin.bind(this));
+        this.addListener(EventType.STOP_REEL_SPIN, this.onStopReelSpin.bind(this));
     }
 
     protected setupChildren(parent: Container) {
@@ -26,7 +29,7 @@ export class ReelView extends SpriteView {
         this.view().addChild(this.background);
 
         this.reelWidget = new ReelWidget(Resources.IMAGES);
-        this.reelWidget.initWidget();
+        this.reelWidget.initWidget(this.onReelStop.bind(this));
         this.reelWidget.x = (this.BASE_WIDTH - this.reelWidget.width) / 2;
         this.view().addChild(this.reelWidget);
 
@@ -35,11 +38,24 @@ export class ReelView extends SpriteView {
 
 
     private onRender(): void {
-        this.reelWidget.onRender(this.data.reel);
+        this.reelWidget.onRender(this.data.reel.state);
     }
 
     private onResize(): void {
         this.view().x = this.view().parent.width * 0.45 / this.view().parent.scale.x;
         this.view().y = this.view().parent.height * 0.07 / this.view().parent.scale.y;
+    }
+
+    private onStartReelSpin(): void {
+        this.data.reel.state = ReelState.SPINNING;
+    }
+
+    private onStopReelSpin(): void {
+        this.data.reel.state = ReelState.STOPPING;
+    }
+
+    private onReelStop(): void {
+        this.data.reel.state = ReelState.IDLE;
+        this.dispatcher.dispatch(EventType.REEL_STOPPED);
     }
 }
