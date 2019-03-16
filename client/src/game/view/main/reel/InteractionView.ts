@@ -1,5 +1,4 @@
 import InteractionEvent = PIXI.interaction.InteractionEvent;
-import Point = PIXI.Point;
 import Sprite = PIXI.Sprite;
 import {BaseView} from "../../../../common/components/BaseView";
 import {SizeData} from "../../../data/size/SizeData";
@@ -25,15 +24,10 @@ export class InteractionView extends BaseView {
     }
 
     private onClickStart(event: InteractionEvent) {
-        let local: Point = event.data.getLocalPosition(this._interactionPanel);
 
-
-        this.data.reel.touchDelta.set(0, 0)
     }
 
     private onClickCancel(event: InteractionEvent) {
-        //let local: Point = event.data.getLocalPosition(this._interactionPanel);
 
-        this.data.reel.touchDelta.set(0, 0)
     }
 }

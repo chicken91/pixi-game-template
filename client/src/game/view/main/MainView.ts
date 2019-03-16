@@ -1,15 +1,7 @@
-import {BaseView} from "../../../common/components/BaseView";
 import {EventType} from "../../../common/type/EventType";
-import Graphics = PIXI.Graphics;
-import Container = PIXI.Container;
-import {SizeData} from "../../data/size/SizeData";
 import {ReelView} from "./reel/ReelView";
-import Sprite = PIXI.Sprite;
-import {Global} from "../../../common/global/Global";
-import BaseRenderTexture = PIXI.BaseRenderTexture;
-import RenderTexture = PIXI.RenderTexture;
 import {SpriteView} from "../../../common/components/SpriteView";
-import PI_2 = PIXI.PI_2;
+import Container = PIXI.Container;
 
 export class MainView extends SpriteView {
     protected readonly BASE_WIDTH: number = 1320;
@@ -19,7 +11,7 @@ export class MainView extends SpriteView {
         super.addListeners();
         this.addListener(EventType.ON_RENDER, this.onRender.bind(this));
         this.addListener(EventType.ON_RESIZE, this.onResize.bind(this));
-        this.addListener(EventType.START_GAME, this.onStartGame.bind(this));
+        this.addListener(EventType.ON_CONTEXT_INIT, this.onStartGame.bind(this));
     }
 
     protected setupChildren(parent: Container) {

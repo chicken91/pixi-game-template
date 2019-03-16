@@ -1,5 +1,6 @@
 import {BaseView} from "../../../common/components/BaseView";
 import {EventType} from "../../../common/type/EventType";
+import {TextConstants, TimeConstants} from "../../constants";
 import Graphics = PIXI.Graphics;
 import Container = PIXI.Container;
 import Text = PIXI.Text;
@@ -13,8 +14,8 @@ export class LoadView extends BaseView {
 
     protected addListeners(): void {
         super.addListeners();
-        this.addListener(EventType.ON_RENDER, this.onRender.bind(this));
         this.addListener(EventType.ON_RESIZE, this.onResize.bind(this));
+        this.addListener(EventType.ON_INIT_MAIN_VIEW, this.onInitMainView.bind(this));
     }
 
     protected setupChildren(parent: Container) {
@@ -24,7 +25,7 @@ export class LoadView extends BaseView {
         this.background.height = this.BASE_HEIGHT;
         this.view().addChild(this.background);
 
-        this.loadingText = new Text("LOADING...");
+        this.loadingText = new Text(TextConstants.loadingProgress);
         this.loadingText.style.fill = "#FFFFFF";
         this.loadingText.width = 600;
         this.loadingText.height = 100;
@@ -33,20 +34,15 @@ export class LoadView extends BaseView {
         this.onResize();
     }
 
-    private onRender(): void {
-
-
-    }
-
     private onResize(): void {
         this.background.width = this.data.size.screenSize.x;
         this.background.height = this.data.size.screenSize.y;
 
         if (this.data.size.screenSize.x > this.data.size.screenSize.y) {
-            this.loadingText.width = 0.8 * Math.round(Math.min(this.data.size.screenSize.y * 6, this.data.size.screenSize.x));
+            this.loadingText.width = 0.4 * Math.round(Math.min(this.data.size.screenSize.y * 6, this.data.size.screenSize.x));
             this.loadingText.height = Math.round(Math.min(this.loadingText.width / 6, this.data.size.screenSize.y));
         } else {
-            this.loadingText.height = 0.8 * Math.round(Math.min(this.data.size.screenSize.x / 6, this.data.size.screenSize.y));
+            this.loadingText.height = 0.4 * Math.round(Math.min(this.data.size.screenSize.x / 6, this.data.size.screenSize.y));
             this.loadingText.width = Math.round(Math.min(this.loadingText.height * 6, this.data.size.screenSize.x));
         }
         this.loadingText.anchor.set(0.5, 0.5);
@@ -54,4 +50,11 @@ export class LoadView extends BaseView {
         this.loadingText.y = this.data.size.screenSize.y / 2;
     }
 
+    private onInitMainView(): void {
+        setTimeout(this.hideLoadingView.bind(this), TimeConstants.loadingViewHideDelay);
+    }
+
+    private hideLoadingView(): void {
+        this.view().visible = false
+    }
 }

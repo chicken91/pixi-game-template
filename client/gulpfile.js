@@ -8,7 +8,7 @@ var OUT_DIR = '../bin';
 // always copy the html first to bin folder
 var srcHTML = './data/templates/index.html';
 var srcCSS = './data/templates/style.css';
-var srcAssets = './data/assets/textures/*';
+var srcAssets = './data/assets/*';
 var pixiPath = './node_modules/pixi.js/dist/pixi.js';
 
 gulp.task('copy:html', function() {

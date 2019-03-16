@@ -8,6 +8,7 @@ import {EventType} from "../common/type/EventType";
 import {GameData} from "./data/GameData";
 import {ResizeService} from "./service/ResizeService";
 import {SizeData} from "./data/size/SizeData";
+import {LoadController} from "./controller/load/LoadController";
 
 export class GameContext {
     private _application: Application;
@@ -19,7 +20,7 @@ export class GameContext {
 
     public startGame() {
         this._application.start();
-        Global.dispatcher.dispatch(EventType.START_GAME);
+        Global.dispatcher.dispatch(EventType.ON_CONTEXT_INIT);
     }
 
     private initApplication() {
@@ -39,12 +40,14 @@ export class GameContext {
         Global.data =  new GameData();
         Global.renderManager = new RenderManager(this._application.renderer);
 
-        let serviceDataList = [
-            {service: ResizeService}
+        let unitList = [
+            ResizeService,
+
+            LoadController
         ];
-        for (let serviceData of serviceDataList) {
-            let service = new serviceData.service();
-            service.setup();
+        for (let unit of unitList) {
+            let unitObject = new unit();
+            unitObject.setup();
         }
 
         BaseView.initialize(StageView, this._application.stage);

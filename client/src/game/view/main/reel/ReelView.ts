@@ -1,14 +1,16 @@
 import Graphics = PIXI.Graphics;
 import Container = PIXI.Container;
-import {BaseView} from "../../../../common/components/BaseView";
 import {EventType} from "../../../../common/type/EventType";
 import {SpriteView} from "../../../../common/components/SpriteView";
+import {Resources} from "../../../../common/type/Resources";
+import {ReelWidget} from "./widgets/ReelWidget";
 
 export class ReelView extends SpriteView {
-    protected readonly BASE_WIDTH: number = 400;
-    protected readonly BASE_HEIGHT: number = 630;
+    protected readonly BASE_WIDTH: number = 200;
+    protected readonly BASE_HEIGHT: number = 600;
 
     protected background: Graphics;
+    protected reelWidget: ReelWidget;
 
     protected addListeners(): void {
         super.addListeners();
@@ -22,17 +24,22 @@ export class ReelView extends SpriteView {
         this.background.width = this.BASE_WIDTH;
         this.background.height = this.BASE_HEIGHT;
         this.view().addChild(this.background);
+
+        this.reelWidget = new ReelWidget(Resources.IMAGES);
+        this.reelWidget.initWidget();
+        this.reelWidget.x = (this.BASE_WIDTH - this.reelWidget.width) / 2;
+        this.view().addChild(this.reelWidget);
+
         this.onResize();
     }
 
 
     private onRender(): void {
-
-
+        this.reelWidget.onRender(this.data.reel);
     }
 
     private onResize(): void {
-        this.view().x = this.view().parent.width * 0.35 / this.view().parent.scale.x;
-        this.view().y = this.view().parent.height * 0.05 / this.view().parent.scale.y;
+        this.view().x = this.view().parent.width * 0.45 / this.view().parent.scale.x;
+        this.view().y = this.view().parent.height * 0.07 / this.view().parent.scale.y;
     }
 }
