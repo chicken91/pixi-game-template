@@ -1,8 +1,8 @@
-import {BaseView} from "../../../common/components/BaseView";
-import {SizeData} from "../../data/size/SizeData";
 import InteractionEvent = PIXI.interaction.InteractionEvent;
 import Point = PIXI.Point;
 import Sprite = PIXI.Sprite;
+import {BaseView} from "../../../../common/components/BaseView";
+import {SizeData} from "../../../data/size/SizeData";
 
 export class InteractionView extends BaseView {
     private _interactionPanel: Sprite;

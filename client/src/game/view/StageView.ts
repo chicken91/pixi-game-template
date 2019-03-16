@@ -1,10 +1,11 @@
 import Container = PIXI.Container;
 import {BaseView} from "../../common/components/BaseView";
 import {EventType} from "../../common/type/EventType";
-import {MainView} from "./MainView";
-import {InteractionView} from "./reel/InteractionView";
+import {MainView} from "./main/MainView";
+import {InteractionView} from "./main/reel/InteractionView";
 import Graphics = PIXI.Graphics;
 import {SizeData} from "../data/size/SizeData";
+import {LoadView} from "./load/LoadView";
 
 export class StageView extends BaseView {
 
@@ -16,6 +17,7 @@ export class StageView extends BaseView {
     protected setupChildren(parent: Container) {
         super.setupChildren(parent);
         this.addChild(new MainView().setup(parent));
+        this.addChild(new LoadView().setup(parent));
         //this.addChild(new InteractionView().setup(parent));
         this.onResize();
     }
