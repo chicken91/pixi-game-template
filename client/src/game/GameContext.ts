@@ -43,7 +43,6 @@ export class GameContext {
 
         let unitList = [
             ResizeService,
-
             LoadController,
             ReelController
         ];

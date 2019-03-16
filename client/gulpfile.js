@@ -5,7 +5,7 @@ var webpack = require('webpack-stream');
 const concat = require('gulp-concat');
 var OUT_DIR = '../bin';
 
-// always copy the html first to bin folder
+
 var srcHTML = './data/templates/index.html';
 var srcCSS = './data/templates/style.css';
 var srcAssets = './data/assets/*';
@@ -23,14 +23,14 @@ gulp.task('copy:assets', function() {
     gulp.src(srcAssets).pipe(gulp.dest(OUT_DIR + '/assets/'));
 });
 
-// compile typescript
+
 gulp.task("ts:build", function () {
     return tsProject.src()
         .pipe(tsProject())
         .js.pipe(gulp.dest("../bin/"));
 });
 
-// run webpack to compile the script into a bundle - note that it needs the ts to already be compiled
+
 gulp.task('webpack', function() {
 	return gulp.src('../bin/')
     .pipe(webpack( require('./webpack.config.js') ))
