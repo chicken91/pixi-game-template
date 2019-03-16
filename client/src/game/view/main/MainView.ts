@@ -57,6 +57,7 @@ export class MainView extends SpriteView {
     private setSpinButtonEnable(enable: boolean): void {
         this.spinButton.buttonMode = enable;
         this.spinButton.interactive = enable;
+        this.spinButton.alpha = enable ? 1 : 0.5;
     }
 
 }

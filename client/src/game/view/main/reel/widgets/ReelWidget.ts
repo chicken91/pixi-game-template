@@ -11,7 +11,7 @@ export class ReelWidget extends Container {
     protected readonly OFFSET_SYMBOLS_COUNT: number = (this.MAX_SYMBOL_COUNT - this.VISIBLE_SYMBOL_COUNT) / 2;
     protected readonly CELL_HEIGHT: number = 200;
     protected readonly UPDATE_SYMBOLS_POSITION: number = -this.CELL_HEIGHT * (this.OFFSET_SYMBOLS_COUNT - 1);
-    protected readonly SPINNING_SPEED: number = 8;
+    protected readonly SPINNING_SPEED: number = 15;
 
     protected symbolTextureIdList: Array<string> = [];
     protected symbolList: Array<Sprite> = [];
@@ -61,7 +61,7 @@ export class ReelWidget extends Container {
 
     protected needSymbolsUpdate(): boolean {
         let topSymbolSprite = this.symbolList[0];
-        let offset = (this.CELL_HEIGHT - topSymbolSprite.height) / 2;
+        let offset = this.getSymbolOffset(topSymbolSprite);
         let symbolPositionY = topSymbolSprite.y - offset;
 
         return symbolPositionY >= this.UPDATE_SYMBOLS_POSITION;
@@ -79,12 +79,22 @@ export class ReelWidget extends Container {
         return this.symbolTextureIdList[randomIndex];
     }
 
+    protected addCorrectSymbolOffset(firstSymbolSprite: Sprite): void {
+        let firstVisibleSymbolSprite = this.symbolList[this.OFFSET_SYMBOLS_COUNT];
+        if (firstVisibleSymbolSprite) {
+            let offset = this.getSymbolOffset(firstVisibleSymbolSprite);
+            let correctOffset = firstVisibleSymbolSprite.y - offset;
+            firstSymbolSprite.y += correctOffset;
+        }
+    }
+
     protected setupSymbol(textureId: string, index: number): void {
         let symbolSprite = Sprite.fromImage(textureId);
-        let offset = (this.CELL_HEIGHT - symbolSprite.height) / 2;
+        let offset = this.getSymbolOffset(symbolSprite);
         symbolSprite.y = (index - this.OFFSET_SYMBOLS_COUNT) * this.CELL_HEIGHT + offset;
         if (index === 0) {
             this.symbolList.unshift(symbolSprite);
+            this.addCorrectSymbolOffset(symbolSprite);
         } else {
             this.symbolList.push(symbolSprite);
         }
@@ -97,5 +107,9 @@ export class ReelWidget extends Container {
         mask.height = this.CELL_HEIGHT * this.VISIBLE_SYMBOL_COUNT;
         this.mask = mask;
         this.addChildAt(mask, 0);
+    }
+
+    protected getSymbolOffset(symbolSprite: Sprite): number {
+        return (this.CELL_HEIGHT - symbolSprite.height) / 2;
     }
 }
