@@ -19,5 +19,8 @@
     ],
     "exclude": [
         "data/templates"
+    ],
+    "files": [
+        "typings/tsd.d.ts"
     ]
 }

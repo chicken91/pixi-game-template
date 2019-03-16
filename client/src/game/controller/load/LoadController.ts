@@ -1,6 +1,6 @@
 import {EventType} from "../../../common/type/EventType";
 import {BaseController} from "../../../common/components/BaseController";
-import {Resources} from "../../../common/type/Resources";
+import {Resources} from "../../constants";
 
 
 export class LoadController extends BaseController {
@@ -10,7 +10,7 @@ export class LoadController extends BaseController {
     }
 
     private onContextInit() {
-        for (let assets of Resources.IMAGES) {
+        for (let assets of Resources.images) {
             PIXI.loader.add(assets.id, assets.path);
         }
         PIXI.loader.load(this.onAssetsLoaded.bind(this));

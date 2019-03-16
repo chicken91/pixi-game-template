@@ -1,9 +1,9 @@
 import {EventType} from "../../../common/type/EventType";
 import {ReelView} from "./reel/ReelView";
 import {SpriteView} from "../../../common/components/SpriteView";
+import {InteractionEvents} from "../../constants";
 import Container = PIXI.Container;
 import Graphics = PIXI.Graphics;
-import {InteractionEvents} from "../../constants";
 
 export class MainView extends SpriteView {
     protected readonly BASE_WIDTH: number = 1320;

@@ -1,10 +1,8 @@
 import {BaseView} from "./BaseView";
 import Container = PIXI.Container;
-import {SizeData} from "../../game/data/size/SizeData";
 import BaseRenderTexture = PIXI.BaseRenderTexture;
 import RenderTexture = PIXI.RenderTexture;
 import Sprite = PIXI.Sprite;
-import Point = PIXI.Point;
 
 export abstract class SpriteView extends BaseView {
     protected readonly BASE_WIDTH: number = 1;

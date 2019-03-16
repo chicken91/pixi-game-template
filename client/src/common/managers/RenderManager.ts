@@ -1,7 +1,7 @@
 import {EventDispatcher} from "../dispatcher/EventDispatcher";
 import {EventType} from "../type/EventType";
-import SystemRenderer = PIXI.SystemRenderer;
 import {Global} from "../global/Global";
+import SystemRenderer = PIXI.SystemRenderer;
 
 export class RenderManager {
     private _dispatcher: EventDispatcher;

@@ -37,8 +37,8 @@ export class GameContext {
     }
 
     private initGame() {
-        Global.dispatcher =  new EventDispatcher();
-        Global.data =  new GameData();
+        Global.dispatcher = new EventDispatcher();
+        Global.data = new GameData();
         Global.renderManager = new RenderManager(this._application.renderer);
 
         let unitList = [

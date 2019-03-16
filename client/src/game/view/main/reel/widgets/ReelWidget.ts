@@ -3,7 +3,6 @@ import Sprite = PIXI.Sprite;
 import Graphics = PIXI.Graphics;
 import {IAssetsData} from "../../../../../common/type/interfaces/IAssetsData";
 import {ReelState} from "../../../../../common/type/ReelState";
-import {ReelData} from "../../../../data/reel/ReelData";
 
 export class ReelWidget extends Container {
     protected readonly MAX_SYMBOL_COUNT: number = 7;

@@ -1,6 +1,5 @@
 import {EventType} from "../../../common/type/EventType";
 import {BaseController} from "../../../common/components/BaseController";
-import {Resources} from "../../../common/type/Resources";
 import {TimeConstants} from "../../constants";
 
 

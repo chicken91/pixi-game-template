@@ -1,9 +1,6 @@
 import {Unit} from "../../common/components/Unit";
-import {EventDispatcher} from "../../common/dispatcher/EventDispatcher";
 import {EventType} from "../../common/type/EventType";
 import {Global} from "../../common/global/Global";
-import {GameData} from "../data/GameData";
-import {SizeData} from "../data/size/SizeData";
 
 export class ResizeService extends Unit {
 
