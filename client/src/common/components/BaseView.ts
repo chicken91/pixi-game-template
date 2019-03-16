@@ -1,9 +1,10 @@
 import Container = PIXI.Container;
 import {Unit} from "./Unit";
 import {isNullOrUndefined} from "util";
+import Sprite = PIXI.Sprite;
 
 export abstract class BaseView extends Unit {
-    private _view: Container;
+    protected _view: Container;
 
     constructor(view?: Container) {
         super();
@@ -34,7 +35,7 @@ export abstract class BaseView extends Unit {
         this._view.addChild(child._view);
     }
 
-    get view(): Container {
+    public view(): Container {
         return this._view;
     }
 }

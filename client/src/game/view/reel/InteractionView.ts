@@ -15,7 +15,7 @@ export class InteractionView extends BaseView {
         this._interactionPanel.interactive = true;
         this._interactionPanel.width = SizeData.GAME_WIDTH;
         this._interactionPanel.height = SizeData.GAME_HEIGHT;
-        this.view.addChild(this._interactionPanel);
+        this.view().addChild(this._interactionPanel);
     }
 
     protected addListeners(): void {

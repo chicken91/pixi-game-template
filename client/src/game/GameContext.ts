@@ -2,7 +2,7 @@ import Application = PIXI.Application;
 import {EventDispatcher} from "../common/dispatcher/EventDispatcher";
 import {Global} from "../common/global/Global";
 import {RenderManager} from "../common/managers/RenderManager";
-import {MainView} from "./view/MainView";
+import {StageView} from "./view/StageView";
 import {BaseView} from "../common/components/BaseView";
 import {EventType} from "../common/type/EventType";
 import {GameData} from "./data/GameData";
@@ -40,13 +40,13 @@ export class GameContext {
         Global.renderManager = new RenderManager(this._application.renderer);
 
         let serviceDataList = [
-            {service: ResizeService, parameters: this._application.stage}
+            {service: ResizeService}
         ];
         for (let serviceData of serviceDataList) {
             let service = new serviceData.service();
             service.setup();
         }
 
-        BaseView.initialize(MainView, this._application.stage);
+        BaseView.initialize(StageView, this._application.stage);
     }
 }
