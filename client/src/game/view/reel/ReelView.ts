@@ -2,8 +2,12 @@ import Graphics = PIXI.Graphics;
 import Container = PIXI.Container;
 import {BaseView} from "../../../common/components/BaseView";
 import {EventType} from "../../../common/type/EventType";
+import {SpriteView} from "../../../common/components/SpriteView";
 
-export class ReelView extends BaseView {
+export class ReelView extends SpriteView {
+    protected readonly BASE_WIDTH: number = 400;
+    protected readonly BASE_HEIGHT: number = 630;
+
     protected background: Graphics;
 
     protected addListeners(): void {
@@ -14,13 +18,12 @@ export class ReelView extends BaseView {
 
     protected setupChildren(parent: Container) {
         super.setupChildren(parent);
-        this.background = new Graphics().beginFill(0xF0FF5B).drawRect(0, 0, 1, 1).endFill();
+        this.background = new Graphics().beginFill(0x7FD5FF).drawRect(0, 0, 1, 1).endFill();
         this.background.visible = true;
-        this.background.width = 100;
-        this.background.height = 400;
+        this.background.width = this.BASE_WIDTH;
+        this.background.height = this.BASE_HEIGHT;
         this.view().addChild(this.background);
         this.onResize();
-
     }
 
 
@@ -30,18 +33,7 @@ export class ReelView extends BaseView {
     }
 
     private onResize(): void {
-        // if (this.data.size.screenSize.x > this.data.size.screenSize.y) {
-        //     this.view.width = Math.round(Math.min(this.data.size.screenSize.y * this.data.size.gameRatio, this.data.size.screenSize.x));
-        //     this.view.height = Math.round(Math.min(this.view.width / this.data.size.gameRatio, this.data.size.screenSize.y));
-        // } else {
-        //     this.view.height = Math.round(Math.min(this.data.size.screenSize.x / this.data.size.gameRatio, this.data.size.screenSize.y));
-        //     this.view.width = Math.round(this.view.height * this.data.size.gameRatio);
-        // }
-        //
-        // this.view.pivot.x = 0.5;
-        // this.view.pivot.y = 0.5;
-        //
-        // this.view.x = this.data.size.screenSize.x / 2;
-        // this.view.y = this.data.size.screenSize.y / 2;
+        this.view().x = this.view().parent.width * 0.35 / this.view().parent.scale.x;
+        this.view().y = this.view().parent.height * 0.05 / this.view().parent.scale.y;
     }
 }
