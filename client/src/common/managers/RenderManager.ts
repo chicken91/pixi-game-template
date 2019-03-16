@@ -6,11 +6,13 @@ import {Global} from "../global/Global";
 export class RenderManager {
     private _dispatcher: EventDispatcher;
     private _renderer: SystemRenderer;
+    private fpsMeter: FPSMeter;
 
     constructor(renderer: SystemRenderer) {
         this._dispatcher = Global.dispatcher;
         this._renderer = renderer;
         this.initCanvas();
+        this.initFPSMeter();
         PIXI.ticker.shared.add(this.onRender.bind(this), this);
     }
 
@@ -34,7 +36,19 @@ export class RenderManager {
         document.body.appendChild(this._renderer.view);
     }
 
+    private initFPSMeter() {
+        this.fpsMeter = new FPSMeter(document.body, {
+            graph: 1,
+            history: 20,
+            left: "10px",
+            position: "fixed",
+            maxFps: 1000,
+            theme: "light"
+        });
+    }
+
     private onRender() {
+        this.fpsMeter.tick();
         this._dispatcher.dispatch(EventType.ON_RENDER);
     }
 
