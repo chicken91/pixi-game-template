@@ -1,0 +1,5 @@
+{
+  "loadBackground": {"type": "GroupContainer", "fitType": "fill", "anchor":{"x":0.5, "y":0.5}, "rPos":{"x":0.5, "y":0.5}, "base":{"width": 2160, "height": 1080}, "children":[
+      {"type": "Graphics", "size": {"width": 2160, "height": 1080}, "position": {"x": 0, "y": 0}, "color": "0x000000"}
+  ]}
+}

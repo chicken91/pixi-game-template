@@ -1,0 +1,9 @@
+{
+  "progressBarView": {"type": "GroupContainer", "bindId": "progressBarView", "fitType": "fit", "anchor": {"x": 0.5, "y": 0.5}, "rPos": {"x":0.5,"y":0.5}, "base":{"width": 1200, "height": 800}, "children":[
+      {"id":"resizeArea", "type": "ResizeArea", "visible": false, "size": {"width":1200, "height": 800}, "position": {"x": 0, "y": 0}},
+      {"id": "bar", "type": "Graphics", "size": {"width": 530, "height": 7.5}, "position": {"x": 600, "y": 400}, "anchor": {"x": 0.5, "y":0}, "color": "0x29292c"},
+      {"id": "progressBar", "type": "Graphics", "size": {"width": 530, "height": 7.5}, "position": {"x": 70, "y": 400}, "anchor": {"x": 0.5, "y":0}, "color": "0x43d33b", "alpha": 1},
+      {"id": "barMask", "type": "Graphics", "size": {"width": 531, "height": 7.6}, "position": {"x": 336, "y": 399}, "color": "0xFFFFFF", "alpha": 1},
+      {"id": "progressText", "type": "Text", "position": {"x": 600, "y": 435}, "realAnchor": {"x":0.5,"y":0.5}, "style": {"fill": "#ffffff", "fontFamily": "DragonsC"}}
+  ]}
+}
