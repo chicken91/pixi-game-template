@@ -4,6 +4,7 @@ import { WidgetView } from "./WidgetView";
 import { isNullOrUndefined } from "util";
 import Spine = PIXI.spine.Spine;
 import SkeletonData = PIXI.spine.core.SkeletonData;
+import TrackEntry = PIXI.spine.core.TrackEntry;
 
 export class SpineView extends WidgetView<Spine> {
     public defaultAnimation!: string;
@@ -34,7 +35,7 @@ export class SpineView extends WidgetView<Spine> {
                 this.stopAnimation();
                 this.endAnimationPromiseResolve = resolve;
                 this.widget.state.setAnimation(0, spineName, loop);
-                this.onActivate();
+                this.onResize();
             } else {
                 resolve();
             }
@@ -43,11 +44,16 @@ export class SpineView extends WidgetView<Spine> {
     }
 
     public stopAnimation(): void {
+        this.endAnimationPromiseResolve = undefined;
         this.widget['lastTime'] = 0;
         this.widget.update(0);
         this.widget.skeleton.setToSetupPose();
         this.widget.state.clearTracks();
-        this.endAnimationPromiseResolve = undefined;
+    }
+
+    public isAnimationActive(animationName: string): boolean {
+        const currentTrackEntry: TrackEntry = this.widget.state.getCurrent(0);
+        return currentTrackEntry && currentTrackEntry.animation.name === "jump" && !currentTrackEntry.isComplete();
     }
 
     public onRemoved(): void {

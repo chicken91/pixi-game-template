@@ -2,7 +2,7 @@ import { AbstractView } from "./AbstractView";
 import { Container } from "pixi.js";
 
 export abstract class WidgetView<T extends Container> extends AbstractView {
-    protected _widget: T | undefined;
+    private _widget: T | undefined;
 
     constructor(widget: T) {
         super();
@@ -12,5 +12,9 @@ export abstract class WidgetView<T extends Container> extends AbstractView {
 
     public get widget(): T {
         return <T>this._widget;
+    }
+
+    public set widget(value: T) {
+        this._widget = value;
     }
 }
