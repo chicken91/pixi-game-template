@@ -1,4 +1,4 @@
-import { TemplateLoader } from "./TemplateLoader";
+import { TemplateLoader } from "./modules/TemplateLoader";
 import { CoreActivator } from "../core/engine/CoreActivator";
 import { CoreContext } from "../core/engine/CoreContext";
 import { CoreLoader } from "../core/engine/CoreLoader";

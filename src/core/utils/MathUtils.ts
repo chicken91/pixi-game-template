@@ -1,4 +1,4 @@
-import Point = PIXI.Point;
+
 
 export class MathUtils {
     public static getRandomInArray(list: Array<any>): any {

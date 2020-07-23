@@ -1,6 +1,41 @@
 {
     "mainView":{"type": "GroupContainer", "fitType": "fit", "base":{"width": 1440, "height": 1920}, "rPos": {"x":0.5, "y": 0.5}, "anchor":{"x":0.5, "y":0.5}, "bindId": "mainView", "children": [
         {"id": "resizeArea", "type": "ResizeArea", "visible": false, "size": {"width": 1440, "height": 1920}, "position": {"x": 0, "y": 0}, "alpha":0.2},
-        {"id": "boySpine", "type": "Spine", "anchor":{"x": 0, "y": 0}, "position": {"x": 720, "y": 1920}, "spineId": "boySpine"}
+        {"id": "boyView", "type": "Container", "bindId": "boyView", "children": [
+            {"id": "boySpine", "type": "Spine", "position": {"x": 720, "y": 1920}, "spineId": "boySpine"}
+        ]},
+        {"libId": "autoPlayButtonView", "type":"Component", "anchor":{"x": 0, "y": 0.5}, "position": {"x": 0, "y": 960}},
+        {"id": "tapToStartText", "type": "Text", "text": "Tap on screen to start!", "anchor":{"x": 0.5, "y": 0.5}, "position": {"x": 720, "y": 700},  "style":{
+            "fill":"white",
+            "fontWeight": "bold",
+            "fontSize": 100
+        }},
+        {"id": "youLoseText", "type": "Text", "text": "You lose!", "visible": false, "anchor":{"x": 0.5, "y": 0.5}, "position": {"x": 720, "y": 700},  "style":{
+            "fill": "0xFFFFFF",
+            "fontWeight": "bold",
+            "strokeThickness": 10,
+            "stroke": "0x000000",
+            "fontSize": 120
+        }},
+        {"id": "youFinishText", "type": "Text", "text": "You finish!", "visible": false, "anchor":{"x": 0.5, "y": 0.5}, "position": {"x": 720, "y": 700},  "style":{
+            "fill": "0xFFFFFF",
+            "fontWeight": "bold",
+            "strokeThickness": 10,
+            "stroke": "0x000000",
+            "fontSize": 120
+        }},
+        {"id": "restartText", "type": "Text", "text": "RESTART", "visible": false, "anchor":{"x": 0.5, "y": 0.5}, "position": {"x": 720, "y": 800},
+            "props":{
+                "buttonMode": true,
+                "interactive": true
+            },
+            "style":{
+                "fill": "0xFFFFFF",
+                "strokeThickness": 10,
+                "stroke": "0x000000",
+                "fontWeight": "bold",
+                "fontSize": 100
+            }
+        }
     ]}
 }

@@ -1,6 +1,5 @@
 {
     "gameScene": {"type": "Container", "children": [
-        {"libId": "mainView", "type": "Component"},
-        {"libId": "messageView", "type": "Component"}
+        {"libId": "mainView", "type": "Component"}
     ]}
 }

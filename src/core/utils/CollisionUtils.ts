@@ -1,7 +1,7 @@
 import { SpineView } from "../components/views/SpineView";
 import { Container } from "pixi.js";
 import Point = PIXI.Point;
-import TrackEntry = PIXI.spine.core.TrackEntry;
+import Bone = PIXI.spine.core.Bone;
 
 export class CollisionUtils {
 
@@ -13,7 +13,7 @@ export class CollisionUtils {
         for (const timeline of timeLines) {
             if (timeline.boneIndex) {
                 const bone = spineView.widget.skeleton.bones[timeline.boneIndex];
-                collisionPoints.push(new Point(bone.worldX + pointX, bone.worldY + pointY));
+                this.addBoneCollisionPoints(bone, collisionPoints, pointX, pointY);
             }
         }
 
@@ -43,7 +43,7 @@ export class CollisionUtils {
             let xj = list[j].x;
             let yj = list[j].y;
 
-            if (yi > y != yj > y && x < (xj - xi) * (y - yi) / (yj - yi) + xi) {
+            if (yi >= y != yj >= y && x <= (xj - xi) * (y - yi) / (yj - yi) + xi) {
                 result = !result;
             }
         }
@@ -52,7 +52,7 @@ export class CollisionUtils {
     }
 
     public static isPolygonCollidePolygon(list1: Array<Point>, list2: Array<Point>): boolean {
-        for (let i = 0; i < list1.length - 1; i++) {
+        for (let i = 0; i < list1.length; i++) {
             const point = list1[i];
             if (this.isPointInPolygon(point.x, point.y, list2)) {
                 return true
@@ -65,5 +65,12 @@ export class CollisionUtils {
         const boyCollisionPoints = CollisionUtils.getSpineCollisionPoints(spine);
         const boxCollisionPoints = CollisionUtils.getContainerCollisionPoints(container);
         return CollisionUtils.isPolygonCollidePolygon(boyCollisionPoints, boxCollisionPoints)
+    }
+
+    private static addBoneCollisionPoints(bone: Bone, list: Array<Point>, deltaX: number, deltaY: number): void {
+        list.push(new Point(bone.worldX + deltaX, bone.worldY + deltaY));
+        for (const childBone of bone.children) {
+            this.addBoneCollisionPoints(childBone, list, deltaX, deltaY);
+        }
     }
 }

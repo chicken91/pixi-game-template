@@ -43,6 +43,13 @@ export class RenderManager {
         const gamePlayPanel = document.getElementById("game-div") as HTMLDivElement;
         gamePlayPanel.appendChild(this.renderModel.canvas);
 
+        if (CoreConstants.deviceType.MOBILE) {
+            var meta = document.createElement('meta');
+            meta.name = "viewport";
+            meta.content = "initial-scale=1,minimum-scale=1,maximum-scale=1,width=device-width,user-scalable=no";
+            document.getElementsByTagName('head')[0].appendChild(meta);
+        }
+
     }
 
     protected updateCanvasStyleDimension(width: number, heigth: number): void {

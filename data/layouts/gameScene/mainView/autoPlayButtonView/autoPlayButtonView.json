@@ -1,0 +1,28 @@
+{
+  "autoPlayButtonView": {"type": "Button", "bindId": "autoPlayButtonView", "components": {
+    "normal_on": [{"type":"Text", "text": "AUTO PLAY\nSTART", "position": {"x":0,"y":0}, "style":{
+      "fill":"0xFFFFFF", "fontSize": 80, "fontWeight": "bold", "align":"center"
+    }}],
+    "over_on": [{"type":"Text", "text": "AUTO PLAY\nSTART", "position": {"x":0,"y":0}, "style":{
+      "fill":"0x0FFF00", "fontSize": 80, "fontWeight": "bold", "align":"center"
+    }}],
+    "down_on": [{"type":"Text", "text": "AUTO PLAY\nSTART", "position": {"x":0,"y":0}, "style":{
+      "fill":"0x0FFF00", "fontSize": 80, "fontWeight": "bold", "align":"center"
+    }}],
+    "disable_on": [{"type":"Text", "text":"AUTO PLAY\nSTART", "position": {"x":0,"y":0}, "style":{
+      "fill":"grey", "fontSize": 80, "fontWeight": "bold", "align":"center"
+    }}],
+    "normal_off": [{"type":"Text", "text":"AUTO PLAY\nSTOP", "position": {"x":0,"y":0}, "style":{
+      "fill":"0xFFFFFF", "fontSize": 80, "fontWeight": "bold", "align":"center"
+    }}],
+    "over_off": [{"type":"Text", "text":"AUTO PLAY\nSTOP", "position": {"x":0,"y":0}, "style":{
+      "fill":"0x0FFF00", "fontSize": 80, "fontWeight": "bold", "align":"center"
+    }}],
+    "down_off": [{"type":"Text", "text":"AUTO PLAY\nSTOP", "position": {"x":0,"y":0}, "style":{
+      "fill":"0x0FFF00", "fontSize": 80, "fontWeight": "bold", "align":"center"
+    }}],
+    "disable_off": [{"type":"Text", "text":"AUTO PLAY\nSTOP", "position": {"x":0,"y":0}, "style":{
+      "fill":"grey", "fontSize": 80, "fontWeight": "bold", "align":"center"
+    }}]
+  }}
+}
