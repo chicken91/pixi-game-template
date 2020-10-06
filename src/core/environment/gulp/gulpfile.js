@@ -1,4 +1,5 @@
 const {argv} = require('yargs');
+const del = require('del');
 if (argv.production || argv.p) {
     process.env.NODE_ENV = 'production';
 }
@@ -20,7 +21,6 @@ module.exports = function (gulp) {
     const mkdirp = require('mkdirp');
     const webpack = require('webpack');
     const webpackStream = require('webpack-stream');
-    const sequence = require('run-sequence').use(gulp);
     const webpackConfig = require(`${ROOT_DIR}/webpack.config.js`);
 
     var merge = require('gulp-merge-json');
@@ -37,11 +37,6 @@ module.exports = function (gulp) {
 
     const layout_merge_files = [`${data_dir}/layouts/**/*.json`, `!${data_dir}/layouts/**/${isMobile ? '@desktop' : '@mobile'}/**/*.json`];
     const layout_output = isMobile ? 'main_layout_mobile.json' : 'main_layout_desktop.json'
-
-    const defaultTasks = ['build:size-report', 'build:index', 'copy:data'];
-    const gulpTotalTime = require('gulp-total-task-time');
-
-    gulpTotalTime.init();
 
     function loadFile(path) {
         return fs.readFileSync(path, 'utf8');
@@ -77,6 +72,7 @@ module.exports = function (gulp) {
     }
 
     function buildSizeReport() {
+        console.log("[buildSizeReport] start");
         const fileMap = {};
         let assetsPath = path.join(data_dir, 'assets');
         // getDirectoryFiles(assetsPath, fileMap);
@@ -87,6 +83,7 @@ module.exports = function (gulp) {
                 console.log(err);
             }
         });
+        console.log("[buildSizeReport] finish");
     }
 
     function addToFileMap(fileMap, file, stat) {
@@ -107,24 +104,6 @@ module.exports = function (gulp) {
         }
     }
 
-    gulp.task('entry', generateExports('./src'));
-
-    gulp.task('entryReplace', () => {
-        replaceFiles('./src', 'index')
-    });
-
-    gulp.task('build:size-report', () => buildSizeReport());
-
-    gulp.task('build:default', () => sequence(defaultTasks));
-
-    gulp.task('copy:data', () => sequence('merge:components', 'copy:assets'));
-
-    gulp.task('copy:assets', () => gulp.src(build_data_files)
-        .pipe(gulp.dest(build_dir)));
-
-    // gulp.task('copy:wrapper', () => gulp.src(wrapperFiles)
-    //     .pipe(gulp.dest(build_dir)));
-
     gulp.task('merge:components', () => gulp.src(layout_merge_files)
         .pipe(merge({fileName: layout_output}))
         .pipe(gulp.dest(`${data_dir}`)))
@@ -133,8 +112,27 @@ module.exports = function (gulp) {
         .pipe((require('gulp-jsonmin'))())
         .pipe(gulp.dest(build_dir)));
 
+    gulp.task('entry', generateExports('./src'));
 
-    gulp.task('build:index', [], (done) => {
+    gulp.task('audiosprite', () => gulp.src(soundFiles)
+        .pipe(audiosprite({
+            format: 'howler', export: "ogg,m4a,mp4", output: "template_audio"
+        }))
+        .pipe(gulp.dest('data/assets/sounds')));
+
+    gulp.task('entryReplace', () => {
+        replaceFiles('./src', 'index')
+    });
+
+    gulp.task('build:size-report', (done) => {
+        buildSizeReport();
+        done();
+    });
+
+    gulp.task('copy:js', () => gulp.src('src/core/environment/js/**/*')
+        .pipe(gulp.dest(path.resolve(build_dir, 'js'))));
+
+    gulp.task('build:index', (done) => {
         if (!fs.existsSync(build_dir)) {
             mkdirp(build_dir);
         }
@@ -152,20 +150,21 @@ module.exports = function (gulp) {
         });
     });
 
-    gulp.task('build:webpack', () => gulp.src('src/index.ts')
+    gulp.task('copy:assets', () => gulp.src(build_data_files)
+        .pipe(gulp.dest(build_dir)));
+
+    gulp.task('copy:data', gulp.series('merge:components', 'copy:assets'));
+
+    gulp.task('build:default', gulp.series('build:size-report', 'build:index', 'copy:data'));
+
+    gulp.task('build:webpack', (done) => {
+        gulp.src('src/index.ts')
         .pipe(webpackStream(webpackConfig, webpack))
         .on('error', () => { /*error*/
         })
-        .pipe(gulp.dest(build_dir)));
+        .pipe(gulp.dest(build_dir));
+        done();
+    });
 
-    gulp.task('default', () => sequence('build:default', 'build:webpack', 'copy:js'));
-
-    gulp.task('copy:js', () => gulp.src('src/core/environment/js/**/*')
-        .pipe(gulp.dest(path.resolve(build_dir, 'js'))));
-
-    gulp.task('audiosprite', () => gulp.src(soundFiles)
-        .pipe(audiosprite({
-            format: 'howler', export: "ogg,m4a,mp4", output: "template_audio"
-        }))
-        .pipe(gulp.dest('data/assets/sounds')));
+    gulp.task('default', gulp.series('build:default', 'build:webpack', 'copy:js'));
 };

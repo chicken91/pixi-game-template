@@ -1,4 +1,4 @@
-const merge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 const webpack = require('webpack');
 
 const nodeEnv = process.env.NODE_ENV || 'development';
@@ -9,15 +9,15 @@ const ROOT_DIR = process.cwd();
 
 const libraries = [];
 if (isProduction) {
-    libraries.push(`${nodeModules}/gsap/src/minified/TweenMax.min.js`);
-    libraries.push(`${nodeModules}/howler/dist/howler.min.js`);
+    libraries.push(`${nodeModules}/gsap/src/index.js`);
+    libraries.push(`${nodeModules}/howler/dist/howler.core.min.js`);
     libraries.push(`${nodeModules}/pixi.js/dist/pixi.min.js`);
     libraries.push(`${__dirname}/lib/PIXI.TextInput.min.js`);
     console.log("PRODUCTION");
 } else {
     libraries.unshift(`${nodeModules}/fpsmeter/dist/fpsmeter.min.js`);
-    libraries.push(`${nodeModules}/gsap/src/uncompressed/TweenMax.js`);
-    libraries.push(`${nodeModules}/howler/dist/howler.min.js`);
+    libraries.push(`${nodeModules}/gsap/src/index.js`);
+    libraries.push(`${nodeModules}/howler/dist/howler.core.min.js`);
     libraries.push(`${nodeModules}/pixi.js/dist/pixi.js`);
     libraries.push(`${__dirname}/lib/PIXI.TextInput.js`);
     console.log("DEVELOP");

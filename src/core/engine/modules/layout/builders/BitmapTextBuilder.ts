@@ -35,7 +35,7 @@ export class BitmapTextBuilder extends BaseBuilder {
         }
 
         if (!isNullOrUndefined(layout.font)) {
-            element.widget.font = layout.font;
+            element.widget.fontName = layout.font;
         }
         if (layout.realAnchor) {
             element.widget.anchor = layout.realAnchor;

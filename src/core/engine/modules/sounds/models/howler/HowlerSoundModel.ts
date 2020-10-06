@@ -1,5 +1,6 @@
 import { SoundModel } from "../SoundModel";
 import { AbstractSound } from "../../entity/AbstractSound";
+import { Howler } from "howler";
 
 export class HowlerSoundModel extends SoundModel {
 

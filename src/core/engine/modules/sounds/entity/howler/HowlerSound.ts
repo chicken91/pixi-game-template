@@ -1,6 +1,7 @@
 import { PlaySoundAction } from "../../actions/PlaySoundAction";
 import { AbstractSound } from "../AbstractSound";
 import { FadeSoundAction } from "../../actions/FadeSoundAction";
+import { Howl, HowlCallback } from "howler";
 
 export class HowlerSound extends AbstractSound {
     protected instance!: Howl;
@@ -17,7 +18,7 @@ export class HowlerSound extends AbstractSound {
             const playId: number = this.instance.play(this.id);
             this.playIdList.push(playId);
             this.instance.loop(playSoundAction.loop, playId);
-            const completeCallback: Function = this.onCompleteCallback.bind(this, playId, playSoundAction.onComplete);
+            const completeCallback: HowlCallback = this.onCompleteCallback.bind(this, playId, playSoundAction.onComplete);
             this.instance.once("end", completeCallback, playId);
             this.instance.once("stop", completeCallback, playId);
             this.emit("SOUND_PLAY", this.id, playId);

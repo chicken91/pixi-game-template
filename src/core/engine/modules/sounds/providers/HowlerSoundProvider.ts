@@ -4,6 +4,7 @@ import { AbstractSound } from "../entity/AbstractSound";
 import { HowlerSound } from "../entity/howler/HowlerSound";
 import { IHowlerSoundResource } from "../entity/howler/IHowlerSoundResource";
 import { AbstractSoundProvider } from "../../assetLoader/providers/AbstractSoundProvider";
+import { Howl } from "howler";
 
 export class HowlerSoundProvider extends AbstractSoundProvider {
     protected resource!: IHowlerSoundResource;

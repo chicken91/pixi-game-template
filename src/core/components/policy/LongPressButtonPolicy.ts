@@ -46,7 +46,7 @@ export class LongPressButtonPolicy extends ButtonPolicy {
         this.onLongPressCompleted();
     }
 
-    protected onButtonMove(event: PIXI.interaction.InteractionEvent): void {
+    protected onButtonMove(event: PIXI.InteractionEvent): void {
         super.onButtonMove(event);
         if (this._moving) {
             this.onLongPressCompleted();

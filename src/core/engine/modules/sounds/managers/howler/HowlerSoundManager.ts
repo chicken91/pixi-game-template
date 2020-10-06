@@ -1,5 +1,6 @@
 import { AbstractSoundManager } from "../AbstractSoundManager";
 import { CoreEvents } from "../../../CoreEvents";
+import { Howler } from "howler";
 
 export class HowlerSoundManager extends AbstractSoundManager {
 

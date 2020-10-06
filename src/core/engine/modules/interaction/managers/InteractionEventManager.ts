@@ -3,8 +3,8 @@ import { inject } from "../../../../injects/inject";
 import { CoreEvents } from "../../CoreEvents";
 import { isNullOrUndefined } from "util";
 import { RenderModel } from "../../screen/model/RenderModel";
-import InteractionManager = PIXI.interaction.InteractionManager;
-import InteractionEvent = PIXI.interaction.InteractionEvent;
+import InteractionManager = PIXI.InteractionManager;
+import InteractionEvent = PIXI.InteractionEvent;
 
 export class InteractionEventManager {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);

@@ -1,6 +1,6 @@
 import { Container } from "pixi.js";
 import { isNullOrUndefined } from "util";
-import InteractionEvent = PIXI.interaction.InteractionEvent;
+import InteractionEvent = PIXI.InteractionEvent;
 
 export class SwipeUtils {
 
