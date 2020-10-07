@@ -36,12 +36,12 @@
     "tsc": "1.20150623.0"
   },
   "scripts": {
-    "build:prod": "gulp --production",
-    "build:prodFull": "gulp --production && gulp --mobile --production",
-    "build:desktop": "gulp --desktop",
-    "build:mobile": "gulp --mobile",
-    "build:full": "gulp --desktop && gulp --mobile",
-    "build": "gulp --desktop",
+    "build:prod": "gulp --env production",
+    "build:prodFull": "gulp --env production && gulp --platform mobile --env production",
+    "build:desktop": "gulp --platform desktop",
+    "build:mobile": "gulp --platform mobile",
+    "build:full": "gulp --platform desktop && gulp --platform mobile",
+    "build": "gulp --platform desktop",
     "copy:data": "gulp copy:data",
     "start": "webpack-dev-server",
     "lint": "tslint -t codeFrame -c ./node_modules/@stakelogic_sdk/environment/lint/tslint.json 'src/**/*.ts'",
