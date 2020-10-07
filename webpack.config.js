@@ -4,7 +4,7 @@ const webpack = require('webpack');
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isProduction = nodeEnv === 'production';
 const nodeModules = `${__dirname}/node_modules`;
-const baseConfig = require(`${__dirname}/src/core/environment/webpack/base.config`);
+const baseConfig = require(`${__dirname}/core/data/webpack/base.config`);
 const ROOT_DIR = process.cwd();
 
 const libraries = [];
@@ -12,14 +12,14 @@ if (isProduction) {
     libraries.push(`${nodeModules}/gsap/src/index.js`);
     libraries.push(`${nodeModules}/howler/dist/howler.core.min.js`);
     libraries.push(`${nodeModules}/pixi.js/dist/pixi.min.js`);
-    libraries.push(`${__dirname}/lib/PIXI.TextInput.min.js`);
+    libraries.push(`${__dirname}/core/lib/PIXI.TextInput.min.js`);
     console.log("PRODUCTION");
 } else {
     libraries.unshift(`${nodeModules}/fpsmeter/dist/fpsmeter.min.js`);
     libraries.push(`${nodeModules}/gsap/src/index.js`);
     libraries.push(`${nodeModules}/howler/dist/howler.core.min.js`);
     libraries.push(`${nodeModules}/pixi.js/dist/pixi.js`);
-    libraries.push(`${__dirname}/lib/PIXI.TextInput.js`);
+    libraries.push(`${__dirname}/core/lib/PIXI.TextInput.js`);
     console.log("DEVELOP");
 }
 

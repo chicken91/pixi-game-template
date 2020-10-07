@@ -1,6 +1,6 @@
 import { MainModule } from "./main/MainModule";
-import { CoreLoader } from "../core/engine/CoreLoader";
-import { CoreContext } from "../core/engine/CoreContext";
+import { CoreLoader } from "../../core/src/engine/CoreLoader";
+import { CoreContext } from "../../core/src/engine/CoreContext";
 
 export class TemplateLoader extends CoreLoader {
 

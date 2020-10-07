@@ -1,4 +1,7 @@
+const { buildOutputDirectory, buildWebpackOutput } = require(`./gulpTasks`);
+
 const rootDirectory = process.cwd();
+const gulp = require('gulp');
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
@@ -86,56 +89,64 @@ function getDirectoryFiles(directoryPath, fileCallback) {
     }
 }
 
-module.exports = function (gulp) {
-    gulp.task('merge:components', () => gulp.src(layoutFiles)
-        .pipe(merge({fileName: layoutMergedName}))
-        .pipe(gulp.dest(`${buildDirectory}`)));
+gulp.task('merge:components', () => gulp.src(layoutFiles)
+  .pipe(merge({fileName: layoutMergedName}))
+  .pipe(gulp.dest(`${buildDirectory}`)));
 
-    gulp.task('entry', generateExports('./src'));
+gulp.task('entry', generateExports('./src'));
 
-    gulp.task('audiosprite', () => gulp.src(soundFiles)
-        .pipe(audiosprite({
-            format: 'howler', export: "ogg,m4a,mp4", output: "template_audio"
-        }))
-        .pipe(gulp.dest('data/assets/sounds')));
+gulp.task('audiosprite', () => gulp.src(soundFiles)
+  .pipe(audiosprite({
+      format: 'howler', export: "ogg,m4a,mp4", output: "template_audio"
+  }))
+  .pipe(gulp.dest('data/assets/sounds')));
 
-    gulp.task('entryReplace', () => {
-        replaceFiles('./src', 'index')
-    });
+gulp.task('entryReplace', () => {
+    replaceFiles('./src', 'index')
+});
 
-    gulp.task('build:size-report', (done) => {
-        buildSizeReport();
+gulp.task('build:size-report', (done) => {
+    buildSizeReport();
+    done();
+});
+
+gulp.task('build:index', (done) => {
+    if (!fs.existsSync(buildDirectory)) {
+        mkdirp(buildDirectory);
+    }
+    const fileName = 'index.html';
+    const {gameName} = loadJson(`${dataDirectory}/config.json`);
+
+    const indexHtml = loadFile(`${rootDirectory}/core/data/html/${fileName}`)
+      .replace('{{NAME}}', gameName);
+
+    fs.writeFile(`${buildDirectory}/${fileName}`, indexHtml, err => {
+        if (err) {
+            console.log(err);
+        }
         done();
     });
+});
 
-    gulp.task('build:index', (done) => {
-        if (!fs.existsSync(buildDirectory)) {
-            mkdirp(buildDirectory);
-        }
-        const fileName = 'index.html';
-        const {gameName} = loadJson(`${dataDirectory}/config/config.json`);
+gulp.task('copy:assets', () => gulp.src(dataCopyFiles)
+  .pipe(gulp.dest(buildDirectory)));
 
-        const indexHtml = loadFile(`${rootDirectory}/src/core/environment/html/${fileName}`)
-            .replace('{{NAME}}', gameName);
+gulp.task('copy:data', gulp.series('merge:components', 'copy:assets'));
 
-        fs.writeFile(`${buildDirectory}/${fileName}`, indexHtml, err => {
-            if (err) {
-                console.log(err);
-            }
-            done();
-        });
-    });
 
-    gulp.task('copy:assets', () => gulp.src(dataCopyFiles)
-        .pipe(gulp.dest(buildDirectory)));
 
-    gulp.task('copy:data', gulp.series('merge:components', 'copy:assets'));
+gulp.task('buildOutputDirectory', buildOutputDirectory);
+gulp.task('buildWebpackOutput', buildWebpackOutput);
 
-    gulp.task('build:webpack', (done) => {
-        gulp.src('src/index.ts')
-        .pipe(webpackStream(webpackConfig, webpack))
-        .pipe(gulp.dest(buildDirectory)).on('finish', () => done())
-    });
-
-    gulp.task('default', gulp.series('build:webpack', 'build:index', 'build:size-report', 'copy:data'));
-};
+gulp.task(
+  'default',
+  gulp.series(
+    'buildOutputDirectory',
+    gulp.parallel(
+      'buildWebpackOutput',
+      'build:index',
+      'build:size-report',
+      'copy:data'
+    )
+  )
+);

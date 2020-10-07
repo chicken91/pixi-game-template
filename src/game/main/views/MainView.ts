@@ -1,5 +1,5 @@
-import { GroupContainerView } from "../../../core/components/views/GroupContainerView";
-import { SpineView } from "../../../core/components/views/SpineView";
+import { GroupContainerView } from "../../../../core/src/components/views/GroupContainerView";
+import { SpineView } from "../../../../core/src/components/views/SpineView";
 import TrackEntry = PIXI.spine.core.TrackEntry;
 
 

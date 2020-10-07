@@ -1,5 +1,5 @@
-import { AbstractController } from "../../../core/components/controllers/AbstractController";
-import { CoreEvents } from "../../../core/engine/modules/CoreEvents";
+import { AbstractController } from "../../../../core/src/components/controllers/AbstractController";
+import { CoreEvents } from "../../../../core/src/engine/modules/CoreEvents";
 import { MainView } from "../views/MainView";
 
 export class MainController extends AbstractController {

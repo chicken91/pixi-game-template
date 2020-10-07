@@ -9,7 +9,7 @@
     ],
 
     "spines": [
-      {"id":  "boySpine", "dataUrl": "/assets/spines/boy/spineboy-pro.json", "src": "/assets/spines/boy/spineboy-pro.png", "groups": ["initial"]}
+      {"id": "boySpine", "dataUrl": "/assets/spines/boy/spineboy-pro.json", "src": "/assets/spines/boy/spineboy-pro.png", "groups": ["initial"]}
     ],
 
     "fonts": [
