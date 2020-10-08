@@ -1,5 +1,5 @@
 export const CoreConstants = {
-    layout_config_url: `/main_layout_{platform}.json`,
+    layout_config_url: `/layout-{platform}.json`,
     resources_config_url: `/resources.json`,
     size_report_url: `/size-report.json`,
     general_config_url: "/config.json",

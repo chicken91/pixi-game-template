@@ -4,14 +4,9 @@ dist
 bin
 .idea/
 /.vscode
-data/main_layout.json
 package-lock.json
 node_modules
 package-lock.json
-main_layout_desktop.json
-main_layout_mobile.json
 size-report.json
-/data/main_layout_desktop.json
-data/size-report.json
 data/config/.DS_Store
 .DS_Store
