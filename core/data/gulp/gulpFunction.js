@@ -1,18 +1,17 @@
+const yargs = require('yargs');
 const rootDirectory = process.cwd();
+process.env.NODE_ENV = yargs.argv.env || 'development';
+process.env.PLATFORM = yargs.argv.platform || 'desktop';
+const nodeEnv = process.env.NODE_ENV || 'development';
 const gulp = require('gulp');
 const fs = require('fs');
 const path = require('path');
 const mkdirp = require('mkdirp');
 const webpack = require('webpack');
-const webpackConfig = require(`${rootDirectory}/webpack.config.js`);
+const webpackConfig = require(`${rootDirectory}/webpack.${nodeEnv}.config.js`);
 const webpackStream = require('webpack-stream');
 const merge = require('gulp-merge-json');
 const audiosprite = require('gulp-audiosprite');
-const yargs = require('yargs');
-
-process.env.NODE_ENV = yargs.argv.env || 'development';
-process.env.PLATFORM = yargs.argv.platform || 'desktop';
-const isMobile = process.env.PLATFORM === 'mobile';
 const dataDirectory = path.join(rootDirectory, 'data');
 const soundFolder = 'data/assets/sounds/sprite/';
 const soundFiles = [`${soundFolder}/*.wav`, `${soundFolder}/*.mp3`];
