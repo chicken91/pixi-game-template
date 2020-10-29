@@ -43,7 +43,7 @@
     "build:full": "gulp --platform desktop && gulp --platform mobile",
     "build": "gulp --platform desktop",
     "copy:data": "gulp copy:data",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --config webpack.development.config.js",
     "lint": "tslint -t codeFrame -c ./core/data/lint/tslint.json 'src/**/*.ts'",
     "fix": "tslint --fix -t codeFrame -c ./core/data/lint/tslint.json 'src/**/*.ts'",
     "audio": "gulp audiosprite"
