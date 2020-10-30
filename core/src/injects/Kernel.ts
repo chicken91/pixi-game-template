@@ -1,6 +1,5 @@
 import { Injection } from "./Injection";
 import { ViewBindingMap } from "./ViewBindingMap";
-import { ControllerBindingMap } from "./ControllerBindingMap";
 import { IServerModel } from "../components/models/IServerModel";
 import { InjectionUtils } from "./InjectionUtils";
 
@@ -16,8 +15,6 @@ export class Kernel {
     private static _instance: Kernel;
     // single class map
     private _injectionMap: { [constructorName: string]: Injection } = {};
-    // controller to view class map
-    private _controllerMap: ControllerBindingMap = new ControllerBindingMap();
     // view to layout id class map
     private _viewMap: ViewBindingMap = new ViewBindingMap();
     // flag that we have to check before create binding class object,
@@ -71,11 +68,6 @@ export class Kernel {
     public bindView(view: any): ViewBindingMap {
         return this._viewMap.bindView(view);
     }
-
-    public bindController(controller: Function): ControllerBindingMap {
-        return this._controllerMap.bindController(controller);
-    }
-
     private checkActivation(): void {
         if (!this._activate) {
             throw new Error("You try to use Kernel before activation!");
@@ -104,10 +96,6 @@ export class Kernel {
                 }
             }
         }
-    }
-
-    public get controllerMap(): ControllerBindingMap {
-        return this._controllerMap;
     }
 
     public get viewMap(): ViewBindingMap {

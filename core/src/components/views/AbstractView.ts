@@ -1,44 +1,39 @@
 import { Container, Graphics } from 'pixi.js';
-import { createController } from '../../injects/inject';
 import { IView } from './IView';
-import { ResizePropertyGroup } from "./resizeProperty/ResizePropertyGroup";
-import { AbstractController } from "../controllers/AbstractController";
+import { SizeDelegator } from "./resizeProperty/SizeDelegator";
 import { IResizeProperty } from "./resizeProperty/IResizeProperty";
 import { ResizeProperty } from "./resizeProperty/ResizeProperty";
-import { ResizePropertyType } from "../types/ResizePropertyType";
+import { ListenerFn } from "eventemitter3";
+import { EventDispatcher } from "../events/EventDispatcher";
+import { inject } from "../../injects/inject";
+import { isNullOrUndefined } from "util";
 
 export abstract class AbstractView extends Container implements IView {
-    public resizePropertyGroup: ResizePropertyGroup = new ResizePropertyGroup();
-    public controller!: AbstractController | undefined;
+    private _dispatcher: EventDispatcher = inject(EventDispatcher);
+    private _listenersMap: { [key: string]: Array<ListenerFn> } = {};
+    public readonly sizeDelegator: SizeDelegator;
 
     constructor() {
         super();
         this.on("added", this.onAdded);
         this.on("removed", this.onRemoved);
-        this.resizePropertyGroup.addResizeProperty(ResizePropertyType.DEFAULT, this.createResizeProperty());
+        this.sizeDelegator = new SizeDelegator(this.createResizeProperty());
     }
 
     public onAdded(): void {
-        createController(this.constructor, this);
     }
 
     public onRemoved(): void {
-        if (this.controller) {
-            this.controller.destroy();
-        }
-        this.controller = undefined;
-    }
-
-    public setController(controller: AbstractController): void {
-        this.controller = controller;
+        this.removeAllEventListeners();
+        this.removeAllListeners()
     }
 
     public onResize(width?: number, height?: number): void {
-        this.resizePropertyGroup.onResize(width, height);
+        this.sizeDelegator.onResize(width, height);
     }
 
     public onActivate(width?: number, height?: number): void {
-        this.resizePropertyGroup.onActivate();
+        this.sizeDelegator.onActivate();
     }
 
     public addMask(width: number, height: number, x: number = 0, y: number = 0): void {
@@ -52,5 +47,36 @@ export abstract class AbstractView extends Container implements IView {
 
     public createResizeProperty(): IResizeProperty {
         return new ResizeProperty(this);
+    }
+
+    protected dispatch(eventName: string, ...args: any[]): void {
+        this._dispatcher.dispatch(eventName, ...args);
+    }
+
+    protected addEventListener(eventName: string, fn: ListenerFn): void {
+        this._dispatcher.addListener(eventName, fn, this);
+        if (isNullOrUndefined(this._listenersMap[eventName])) {
+            this._listenersMap[eventName] = [];
+        }
+        this._listenersMap[eventName].push(fn);
+    }
+
+    protected removeAllEventListeners(): void {
+        for (const key of Object.keys(this._listenersMap)) {
+            this.removeListener(key);
+        }
+        this._listenersMap = {};
+    }
+
+    protected removeEventListener(eventName: string): void {
+        const listenersForEvent: Array<ListenerFn> = this._listenersMap[eventName];
+        if (listenersForEvent) {
+            for (const fn of listenersForEvent) {
+                this._dispatcher.off(eventName, fn, this);
+            }
+            delete this._listenersMap[eventName];
+        } else {
+            console.warn("There are no any listeners for event " + eventName);
+        }
     }
 }

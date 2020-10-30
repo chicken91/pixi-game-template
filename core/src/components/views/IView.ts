@@ -1,17 +1,13 @@
 import { Container } from "pixi.js";
-import { ResizePropertyGroup } from "./resizeProperty/ResizePropertyGroup";
-import { AbstractController } from "../controllers/AbstractController";
+import { SizeDelegator } from "./resizeProperty/SizeDelegator";
 import { IResizeProperty } from "./resizeProperty/IResizeProperty";
 
 export interface IView extends Container {
-    controller: AbstractController | undefined;
-    resizePropertyGroup: ResizePropertyGroup;
+    readonly sizeDelegator: SizeDelegator;
 
     onAdded(): void;
 
     onRemoved(): void;
-
-    setController(controller: AbstractController): void;
 
     onResize(width?: number, height?: number): void;
 

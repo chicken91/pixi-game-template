@@ -52,7 +52,7 @@ export abstract class BaseBuilder {
             element.rotation = layout.rotation * (Math.PI / 180);
         }
 
-        let resizeProperty: IResizeProperty = element.resizePropertyGroup.getResizePropertyByType(ResizePropertyType.DEFAULT);
+        let resizeProperty: IResizeProperty = element.sizeDelegator.getResizePropertyByType(ResizePropertyType.DEFAULT);
         resizeProperty.onApplyProperty(layout);
 
         if (CoreConstants.deviceType.MOBILE && !isNullOrUndefined(layout.ratio)) {
@@ -60,7 +60,7 @@ export abstract class BaseBuilder {
                 if (layout.ratio.hasOwnProperty(ratioKey)) {
                     let ratioResizeProperty: IResizeProperty = element.createResizeProperty();
                     ratioResizeProperty.onApplyProperty(layout.ratio[ratioKey]);
-                    element.resizePropertyGroup.addResizeProperty(ratioKey, ratioResizeProperty);
+                    element.sizeDelegator.addResizeProperty(ratioKey, ratioResizeProperty);
                 }
             }
         }

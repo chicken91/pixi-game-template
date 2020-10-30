@@ -1,6 +1,7 @@
 import { GroupContainerView } from "../../../../core/src/components/views/GroupContainerView";
 import { SpineView } from "../../../../core/src/components/views/SpineView";
 import TrackEntry = PIXI.spine.core.TrackEntry;
+import { CoreEvents } from "../../../../core/src/engine/modules/CoreEvents";
 
 
 export class MainView extends GroupContainerView {
@@ -8,6 +9,7 @@ export class MainView extends GroupContainerView {
 
     public onAdded(): void {
         super.onAdded();
+        this.addEventListener(CoreEvents.ON_TOUCH_ANY_WHERE, this.onTouchAnyWhere);
         this.boySpine.startAnimation("idle", true);
     }
 

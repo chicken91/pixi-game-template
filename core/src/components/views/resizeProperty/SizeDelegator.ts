@@ -5,10 +5,15 @@ import { CoreConstants } from "../../../engine/modules/CoreConstants";
 import { ResizePropertyType } from "../../types/ResizePropertyType";
 import { isNullOrUndefined } from "util";
 
-export class ResizePropertyGroup {
+export class SizeDelegator {
     protected _screenModel: ScreenModel = inject(ScreenModel);
     protected _resizePropertyMap: { [resizePropertyKey: string]: IResizeProperty } = {};
     protected _activePropertyKey!: string;
+
+
+    constructor(resizeProperty: IResizeProperty) {
+        this.addResizeProperty(ResizePropertyType.DEFAULT, resizeProperty);
+    }
 
     public addResizeProperty(type: string, resizeProperty: IResizeProperty): void {
         this.mergeDefaultProperty(resizeProperty);

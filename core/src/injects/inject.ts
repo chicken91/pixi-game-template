@@ -1,5 +1,4 @@
 import { Kernel } from "./Kernel";
-import { IView } from "../components/views/IView";
 import { IServerModel } from "../components/models/IServerModel";
 
 /**
@@ -8,15 +7,6 @@ import { IServerModel } from "../components/models/IServerModel";
  */
 export function inject(constructor: Function): any {
     return Kernel.getInstance().getBind(constructor);
-}
-
-/**
- * gets binding for controller connected to certain view
- * @param constructor base binded class that we want to get
- * @param view view class which we connect to controller
- */
-export function createController(constructor: Function, view: IView): void {
-    return Kernel.getInstance().controllerMap.createController(constructor, view);
 }
 
 /**
