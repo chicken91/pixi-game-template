@@ -1,9 +1,10 @@
 import { GroupContainerView } from "../../../../core/src/components/views/GroupContainerView";
 import { SpineView } from "../../../../core/src/components/views/SpineView";
-import TrackEntry = PIXI.spine.core.TrackEntry;
 import { CoreEvents } from "../../../../core/src/engine/modules/CoreEvents";
+import { viewMapping } from "../../../../core/src/injects/inject";
+import TrackEntry = PIXI.spine.core.TrackEntry;
 
-
+@viewMapping('mainView')
 export class MainView extends GroupContainerView {
     protected boySpine!: SpineView;
 

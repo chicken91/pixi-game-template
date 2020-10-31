@@ -1,11 +1,19 @@
-import { MainModule } from "./main/MainModule";
 import { CoreLoader } from "../../core/src/engine/CoreLoader";
-import { CoreContext } from "../../core/src/engine/CoreContext";
+import { MainView } from "./main/views/MainView";
 
 export class TemplateLoader extends CoreLoader {
 
-    protected addModules(context: CoreContext): void {
-        super.addModules(context);
-        this.addModule(new MainModule(context));
+    protected getBindedClasses(): Array<Function> {
+        const bindedClasses = super.getBindedClasses();
+        bindedClasses.push(...[]);
+        return bindedClasses;
+    }
+
+    protected getViewMappingClasses(): Array<Function> {
+        const bindedClasses = super.getViewMappingClasses();
+        bindedClasses.push(...[
+            MainView
+        ]);
+        return bindedClasses;
     }
 }

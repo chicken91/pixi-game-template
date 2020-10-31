@@ -5,12 +5,13 @@ import { ContainerBuilder } from './ContainerBuilder';
 import { ButtonView } from "../../../../components/views/ButtonView";
 import { IView } from "../../../../components/views/IView";
 import { ButtonViewType } from "../../../../components/types/ButtonViewType";
-import { inject } from '../../../../injects/inject';
+import { bind, inject } from '../../../../injects/inject';
 import { ToggleButtonPolicy } from '../../../../components/policy/ToggleButtonPolicy';
 import { isNullOrUndefined } from "util";
 import { CoreConstants } from "../../CoreConstants";
 import Rectangle = PIXI.Rectangle;
 
+@bind()
 export class ButtonBuilder extends ContainerBuilder {
     protected createDefault(layout: any, layoutParser: BaseParser): IView {
         return new ButtonView();

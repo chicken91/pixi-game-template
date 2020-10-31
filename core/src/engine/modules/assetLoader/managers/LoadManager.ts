@@ -1,17 +1,13 @@
 import { EventDispatcher } from "../../../../components/events/EventDispatcher";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { LoadModel } from "../models/LoadModel";
 import { AbstractAssetData } from "../models/data/AbstractAssetData";
 import { IBaseResource } from "../interfaces/IBaseResource";
 import { AssetDataFactory } from "../models/data/AssetDataFactory";
 import { CoreEvents } from "../../CoreEvents";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 
-
-/**
- * @class LoadManager
- * Manage load assets data, start and handle loading process by each asset
- *
- */
+@bind({singleton: true, priority: CreationPriority.HIGH})
 export class LoadManager {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);
     protected loadModel: LoadModel = inject(LoadModel);

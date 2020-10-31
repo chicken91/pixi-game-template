@@ -1,7 +1,9 @@
 import { EventDispatcher } from "../../../../components/events/EventDispatcher";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { CoreEvents } from "../../CoreEvents";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 
+@bind({singleton: true, priority: CreationPriority.HIGH})
 export class KeyboardManager {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);
 

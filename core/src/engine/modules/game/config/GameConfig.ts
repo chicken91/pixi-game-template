@@ -1,3 +1,6 @@
+import { bind } from "../../../../injects/inject";
+
+@bind({singleton: true})
 export class GameConfig {
     private _serverUrl!: string;
     private _soundMap!: any;

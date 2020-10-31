@@ -1,11 +1,12 @@
 import { EventDispatcher } from "../../../../components/events/EventDispatcher";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { LoadManager } from "../../assetLoader/managers/LoadManager";
 import { LoadModel } from "../../assetLoader/models/LoadModel";
 import { AbstractAssetData } from "../../assetLoader/models/data/AbstractAssetData";
 import { Action } from "../../../../components/actions/Action";
 import { CoreEvents } from "../../CoreEvents";
 
+@bind({singleton: true})
 export class LazyAssetsAction extends Action {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);
     protected loadManager: LoadManager = inject(LoadManager);

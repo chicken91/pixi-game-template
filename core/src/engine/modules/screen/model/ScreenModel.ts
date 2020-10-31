@@ -4,7 +4,9 @@ import { OrientationType } from "../types/OrientationType";
 import { observableProperty } from '../../../../components/models/observe';
 import { AbstractModel } from '../../../../components/models/AbstractModel';
 import { UrlUtils } from "../../game/utils/UrlUtils";
+import { bind } from "../../../../injects/inject";
 
+@bind({singleton: true})
 export class ScreenModel extends AbstractModel {
     private _dpi!: string;
     private _multiply!: number;

@@ -1,5 +1,7 @@
 import SkeletonData = PIXI.spine.core.SkeletonData;
+import { bind } from "../../../../injects/inject";
 
+@bind({singleton: true})
 export class SpineModel {
     private _dataMap: { [key: string]: SkeletonData } = {};
 

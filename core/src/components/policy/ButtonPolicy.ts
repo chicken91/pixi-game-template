@@ -2,8 +2,10 @@ import { ButtonEventType } from '../types/ButtonEventType';
 import { ButtonViewType } from '../types/ButtonViewType';
 import { ButtonView } from "../views/ButtonView";
 import { Point } from "pixi.js";
+import { bind } from "../../injects/inject";
 import InteractionEvent = PIXI.InteractionEvent;
 
+@bind()
 export class ButtonPolicy {
     protected readonly START_MOVING_DELTA = 15;
     protected _object!: ButtonView;

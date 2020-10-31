@@ -1,13 +1,10 @@
 import { GameConfig } from "../config/GameConfig";
-import { AbstractServerModel } from "../../server/models/AbstractServerModel";
-import { ExtendedResponse } from "../../CoreTypes";
+import { AbstractModel } from "../../../../components/models/AbstractModel";
+import { bind } from "../../../../injects/inject";
 
-export abstract class GameModel extends AbstractServerModel {
+@bind({singleton: true})
+export abstract class GameModel extends AbstractModel {
     protected _gameConfig!: GameConfig;
-
-    public fetchResponseData(response: ExtendedResponse): void {
-
-    }
 
     public initialize(gameConfig: GameConfig): void {
         this._gameConfig = gameConfig;

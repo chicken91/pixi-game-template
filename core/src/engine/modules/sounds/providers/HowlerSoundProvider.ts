@@ -5,7 +5,9 @@ import { HowlerSound } from "../entity/howler/HowlerSound";
 import { IHowlerSoundResource } from "../entity/howler/IHowlerSoundResource";
 import { AbstractSoundProvider } from "../../assetLoader/providers/AbstractSoundProvider";
 import { Howl } from "howler";
+import { bind } from "../../../../injects/inject";
 
+@bind({bind: AbstractSoundProvider})
 export class HowlerSoundProvider extends AbstractSoundProvider {
     protected resource!: IHowlerSoundResource;
     protected howlMap: { [id: string]: Howl } = {};

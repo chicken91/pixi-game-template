@@ -10,8 +10,7 @@ export interface IResponse {
     status: string;
 }
 
-export interface ExtendedResponse extends IResponse {
-    id: number;
+export interface IExtendedResponse extends IResponse {
     request: ServerRequestData;
 }
 

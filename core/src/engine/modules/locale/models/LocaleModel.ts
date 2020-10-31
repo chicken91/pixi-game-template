@@ -1,3 +1,6 @@
+import { bind } from "../../../../injects/inject";
+
+@bind({singleton: true})
 export class LocaleModel {
     private _language!: string;
     private _country!: string;

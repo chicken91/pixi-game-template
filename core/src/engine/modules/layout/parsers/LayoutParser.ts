@@ -1,6 +1,6 @@
 import { BitmapTextBuilder } from '../builders/BitmapTextBuilder';
 import { TextBuilder } from '../builders/TextBuilder';
-import { inject } from '../../../../injects/inject';
+import { bind, inject } from '../../../../injects/inject';
 import { ButtonBuilder } from '../builders/ButtonBuilder';
 import { ComponentBuilder } from '../builders/ComponentBuilder';
 import { ContainerBuilder } from '../builders/ContainerBuilder';
@@ -14,6 +14,7 @@ import { ResizeAreaBuilder } from "../builders/ResizeAreaBuilder";
 import { GraphicsBuilder } from "../builders/GraphicsBuilder";
 import { TextInputBuilder } from "../builders/TextInputBuilder";
 
+@bind({singleton: true})
 export class LayoutParser extends BaseParser {
     protected addBuilders(): void {
         this.addBuilder(ViewType.COMPONENT, inject(ComponentBuilder));

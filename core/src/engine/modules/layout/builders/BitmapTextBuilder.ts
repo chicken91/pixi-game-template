@@ -3,7 +3,9 @@ import { isNullOrUndefined } from 'util';
 import { BaseParser } from "../parsers/BaseParser";
 import { IView } from '../../../../components/views/IView';
 import { BitmapTextView } from "../../../../components/views/BitmapTextView";
+import { bind } from "../../../../injects/inject";
 
+@bind()
 export class BitmapTextBuilder extends BaseBuilder {
 
     protected createDefault(layout: any, layoutParser: BaseParser): IView {

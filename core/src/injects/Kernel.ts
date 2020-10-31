@@ -1,7 +1,6 @@
 import { Injection } from "./Injection";
-import { ViewBindingMap } from "./ViewBindingMap";
-import { IServerModel } from "../components/models/IServerModel";
 import { InjectionUtils } from "./InjectionUtils";
+import { BindingOptions } from "./BindingOptions";
 
 /**
  * @class Kernel
@@ -13,12 +12,8 @@ import { InjectionUtils } from "./InjectionUtils";
  */
 export class Kernel {
     private static _instance: Kernel;
-    // single class map
     private _injectionMap: { [constructorName: string]: Injection } = {};
-    // view to layout id class map
-    private _viewMap: ViewBindingMap = new ViewBindingMap();
-    // flag that we have to check before create binding class object,
-    // it can create object only after initialize all classes binding
+    private _viewMap: { [id: string]: Function } = {};
     private _activate = false;
 
     public static getInstance(): Kernel {
@@ -30,29 +25,22 @@ export class Kernel {
 
     public activate(): void {
         this._activate = true;
-        this.activateForceInjections();
+        this.activateHighPriorityInjections();
     }
 
-    public bind(constructor: Function): Injection {
-
+    public bind(target: Function, options: BindingOptions): void {
+        const constructor = options && options.bind ? options.bind : target;
         let injection = this.getInjection(constructor);
         if (!injection) {
             injection = new Injection(constructor);
             this.addInjection(constructor, injection);
         }
-        return injection;
-    }
 
-    public getServerModels(): Array<IServerModel> {
-        let serverModelList: Array<IServerModel> = [];
-        let keyList: Array<string> = Object.keys(this._injectionMap);
-        for (let key of keyList) {
-            let injection: Injection = this._injectionMap[key];
-            if (injection.isServerModel()) {
-                serverModelList.push(injection.getInstance());
-            }
+        if (options) {
+            options.bind && injection.to(target);
+            options.singleton && injection.asSingleton();
+            injection.priority = options.priority;
         }
-        return serverModelList;
     }
 
     public getBind(constructor: Function): any {
@@ -65,9 +53,10 @@ export class Kernel {
         return injection.getInstance();
     }
 
-    public bindView(view: any): ViewBindingMap {
-        return this._viewMap.bindView(view);
+    public viewMapping(view: Function, viewId): void {
+        this._viewMap[viewId] = view;
     }
+
     private checkActivation(): void {
         if (!this._activate) {
             throw new Error("You try to use Kernel before activation!");
@@ -87,18 +76,14 @@ export class Kernel {
         return this._injectionMap[uniqueId];
     }
 
-    private activateForceInjections(): void {
-        for (let constructorName in this._injectionMap) {
-            if (constructorName) {
-                let injection: Injection = this._injectionMap[constructorName];
-                if (injection.isForceCreation()) {
-                    injection.getInstance();
-                }
-            }
-        }
+    private activateHighPriorityInjections(): void {
+        Object.values(this._injectionMap)
+            .filter(injection => injection.priority > 0)
+            .sort((injection1, injection2) => injection2.priority - injection1.priority)
+            .forEach(injection => injection.getInstance());
     }
 
-    public get viewMap(): ViewBindingMap {
-        return this._viewMap;
+    public getView(id: string): Function {
+        return this._viewMap[id];
     }
 }

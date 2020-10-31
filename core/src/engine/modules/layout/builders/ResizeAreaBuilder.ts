@@ -3,7 +3,9 @@ import { BaseBuilder } from "./BaseBuilder";
 import { IView } from "../../../../components/views/IView";
 import { isNullOrUndefined } from "util";
 import { ResizeAreaView } from "../../../../components/views/ResizeAreaView";
+import { bind } from "../../../../injects/inject";
 
+@bind()
 export class ResizeAreaBuilder extends BaseBuilder {
 
     protected createDefault(layout: any, layoutParser: BaseParser): IView {

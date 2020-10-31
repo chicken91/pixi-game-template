@@ -1,7 +1,9 @@
 import { ScreenModel } from '../model/ScreenModel';
-import { inject } from '../../../../injects/inject';
+import { bind, inject } from '../../../../injects/inject';
 import { TimeUtils } from "../../../../utils/TimeUtils";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 
+@bind({singleton: true, priority: CreationPriority.VERY_HIGH})
 export class TimerManager {
     protected screenModel: ScreenModel = inject(ScreenModel);
 

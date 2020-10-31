@@ -1,6 +1,8 @@
 import { ButtonEventType } from '../types/ButtonEventType';
 import { ButtonPolicy } from './ButtonPolicy';
+import { bind } from "../../injects/inject";
 
+@bind()
 export class LongPressButtonPolicy extends ButtonPolicy {
     public readonly LONG_PRESS_TIME: number = 200;
 

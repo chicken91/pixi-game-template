@@ -3,7 +3,9 @@ import { BaseBuilder } from "./BaseBuilder";
 import { ContainerView } from "../../../../components/views/ContainerView";
 import { IView } from "../../../../components/views/IView";
 import { isNullOrUndefined } from "util";
+import { bind } from "../../../../injects/inject";
 
+@bind()
 export class ContainerBuilder extends BaseBuilder {
     protected createDefault(layout: any, layoutParser: BaseParser): IView {
         return new ContainerView();

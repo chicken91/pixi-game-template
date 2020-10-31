@@ -2,10 +2,11 @@ import { BaseBuilder } from "./BaseBuilder";
 import { BaseParser } from "../parsers/BaseParser";
 import { isNullOrUndefined } from "util";
 import { LoadModel } from "../../assetLoader/models/LoadModel";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { ImageView } from "../../../../components/views/ImageView";
 import { TextureUtils } from "../../assetLoader/utils/TextureUtils";
 
+@bind()
 export class ImageBuilder extends BaseBuilder {
     protected loadModel: LoadModel = inject(LoadModel);
 

@@ -1,5 +1,19 @@
 import { Kernel } from "./Kernel";
-import { IServerModel } from "../components/models/IServerModel";
+import { BindingOptions } from "./BindingOptions";
+
+export function bind(options?: BindingOptions): any {
+    return function (target: Function) {
+        Kernel.getInstance().bind(target, options);
+        return target;
+    };
+}
+
+export function viewMapping(viewId: string): any {
+    return function (target: Function) {
+        Kernel.getInstance().viewMapping(target, viewId);
+        return target;
+    };
+}
 
 /**
  * Inject method gets binding from the map we created
@@ -14,12 +28,5 @@ export function inject(constructor: Function): any {
  * @param id of view from layout
  */
 export function getViewClass(id: string): Function {
-    return Kernel.getInstance().viewMap.getView(id);
-}
-
-/**
- * get all model which binding as server model
- */
-export function getServerModels(): Array<IServerModel> {
-    return Kernel.getInstance().getServerModels();
+    return Kernel.getInstance().getView(id);
 }

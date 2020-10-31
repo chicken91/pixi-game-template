@@ -1,7 +1,9 @@
 import { Linear, TimelineMax } from 'gsap';
 import { ContainerView } from "../../../../../components/views/ContainerView";
 import { CoreEvents } from "../../../CoreEvents";
+import { viewMapping } from "../../../../../injects/inject";
 
+@viewMapping('loadView')
 export class LoadView extends ContainerView {
 
     onAdded(): void {

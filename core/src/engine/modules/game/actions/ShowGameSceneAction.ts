@@ -1,7 +1,9 @@
 import { Action } from "../../../../components/actions/Action";
 import { CoreEvents } from "../../CoreEvents";
 import { CoreConstants } from '../../CoreConstants';
+import { bind } from "../../../../injects/inject";
 
+@bind({singleton: true})
 export class ShowGameSceneAction extends Action {
 
     protected onExecute(): void {

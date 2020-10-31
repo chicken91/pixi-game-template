@@ -1,4 +1,4 @@
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { LoadUtils } from "../../assetLoader/utils/LoadUtils";
 import { LoadModel } from "../../assetLoader/models/LoadModel";
 import { IResources } from "../../assetLoader/interfaces/IResources";
@@ -12,6 +12,7 @@ import { StringReplacement } from "../../CoreTypes";
 import { StringUtils } from '../../../../utils/StringUtils';
 import { GameModel } from "../model/GameModel";
 
+@bind({singleton: true})
 export class LoadConfigAction extends Action {
     protected gameConfig: GameConfig = inject(GameConfig);
     protected gameModel: GameModel = inject(GameModel);

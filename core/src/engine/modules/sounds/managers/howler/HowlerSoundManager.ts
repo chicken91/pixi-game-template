@@ -1,7 +1,10 @@
 import { AbstractSoundManager } from "../AbstractSoundManager";
 import { CoreEvents } from "../../../CoreEvents";
 import { Howler } from "howler";
+import { bind } from "../../../../../injects/inject";
+import { CreationPriority } from "../../../../../injects/CreationPriority";
 
+@bind({bind: AbstractSoundManager, priority: CreationPriority.HIGH, singleton: true})
 export class HowlerSoundManager extends AbstractSoundManager {
 
     constructor() {

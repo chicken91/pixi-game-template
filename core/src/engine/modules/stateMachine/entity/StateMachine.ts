@@ -1,11 +1,12 @@
 import { IState } from '../states/IState';
-import { inject } from '../../../../injects/inject';
+import { bind, inject } from '../../../../injects/inject';
 import { StateMachineModel } from "../model/StateMachineModel";
 import { IdleState } from "../states/IdleState";
 import { IStateMachineOptions } from "../../CoreTypes";
 import { IStateMachine } from "./IStateMachine";
 import { LoadState } from "../states/LoadState";
 
+@bind({singleton: true})
 export class StateMachine implements IStateMachine {
     protected stateMachineModel: StateMachineModel = inject(StateMachineModel);
     protected transitionMap: { [id: string]: { from: IState[], to: IState } } = {};

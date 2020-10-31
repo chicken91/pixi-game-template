@@ -2,7 +2,9 @@ import { GroupContainerView } from "../../../../../components/views/GroupContain
 import { GraphicsView } from "../../../../../components/views/GraphicsView";
 import { TextView } from "../../../../../components/views/TextView";
 import { CoreEvents } from "../../../CoreEvents";
+import { viewMapping } from "../../../../../injects/inject";
 
+@viewMapping('progressBarView')
 export class ProgressBarView extends GroupContainerView {
     protected bar!: GraphicsView;
     protected barMask!: GraphicsView;

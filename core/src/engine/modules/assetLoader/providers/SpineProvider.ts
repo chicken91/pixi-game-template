@@ -1,11 +1,12 @@
 import { AbstractLoaderProvider } from "./AbstractLoaderProvider";
 import { ISpineResource } from "../interfaces/ISpineResource";
 import { SpineModel } from "../models/SpineModel";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { AssetsType } from "../types/AssetsType";
 import { LoadUtils } from "../utils/LoadUtils";
 import Loader = PIXI.Loader;
 
+@bind()
 export class SpineProvider extends AbstractLoaderProvider {
     protected spineModel: SpineModel = inject(SpineModel);
     protected loader: Loader = new Loader();

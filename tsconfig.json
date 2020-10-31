@@ -7,7 +7,7 @@
       "es2015",
       "dom"
     ],
-    "strict": true,
+    "strict": false,
     "moduleResolution": "node",
     "sourceMap": true,
     "removeComments": false,

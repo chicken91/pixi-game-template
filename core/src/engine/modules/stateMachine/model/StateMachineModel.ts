@@ -1,3 +1,6 @@
+import { bind } from "../../../../injects/inject";
+
+@bind({singleton: true})
 export class StateMachineModel {
     protected _activeState!: string;
 

@@ -1,15 +1,12 @@
 import { EventDispatcher } from '../../../../components/events/EventDispatcher';
 import { AssetsGroup } from '../types/AssetsGroup';
 import { LoadModel } from "../models/LoadModel";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { CoreEvents } from "../../CoreEvents";
 import { RenderModel } from "../../screen/model/RenderModel";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 
-/**
- * @class LoadToGpuManager
- *
- * Handle loaded "gpu" assets and load texture to gpu
- */
+@bind({singleton: true, priority: CreationPriority.HIGH})
 export class LoadToGpuManager {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);
     protected loadModel: LoadModel = inject(LoadModel);

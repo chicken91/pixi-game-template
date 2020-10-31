@@ -3,12 +3,9 @@ import { isNullOrUndefined } from "util";
 import { IResources } from "../interfaces/IResources";
 import { IBaseResource } from "../interfaces/IBaseResource";
 import { AbstractAssetData } from "./data/AbstractAssetData";
+import { bind } from "../../../../injects/inject";
 
-/**
- * @class LoadModel
- *
- * Store different types of assets data
- */
+@bind({singleton: true})
 export class LoadModel {
     private _resourceData!: IResources;
     private _resourceMap: { [resourceId: string]: IBaseResource } = {};

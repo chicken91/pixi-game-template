@@ -1,10 +1,12 @@
 import { EventDispatcher } from "../../../../components/events/EventDispatcher";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { CoreEvents } from "../../CoreEvents";
 import { CoreConstants } from "../../CoreConstants";
 import { RenderModel } from "../model/RenderModel";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 import Ticker = PIXI.Ticker;
 
+@bind({singleton: true, priority: CreationPriority.VERY_HIGH})
 export class RenderManager {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);
     protected renderModel: RenderModel = inject(RenderModel);

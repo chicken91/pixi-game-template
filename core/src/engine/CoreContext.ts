@@ -1,18 +1,14 @@
-import { IApplicationModule } from './modules/IApplicationModule';
 import { Kernel } from "../injects/Kernel";
-import { EventDispatcher } from "../components/events/EventDispatcher";
-import { ApplicationModule } from "./modules/ApplicationModule";
 
 export class CoreContext {
     private _isActivated: boolean;
     private _kernel: Kernel;
-    private _modules: IApplicationModule[];
+    private _classes: Array<Function>;
 
     constructor() {
         this._isActivated = false;
-        this._modules = [];
+        this._classes = [];
         this._kernel = Kernel.getInstance();
-        this.addBindings();
     }
 
     /**
@@ -27,34 +23,16 @@ export class CoreContext {
         this._isActivated = true;
 
         this._kernel.activate();
-        this._modules.forEach((item: IApplicationModule) => {
-                item.onActivation();
-            }
-        );
-        this._modules = [];
+
+        console.log(`Binding classes ${this._classes}`);
     }
 
-    /**
-     * Adding module to the _modules array to manage
-     * @param module add injections
-     */
-    public addModule(module: ApplicationModule): void {
-        this._modules.push(module);
-    }
-
-    /**
-     * Adding bindings that are common and dont belong to any module
-     */
-    public addBindings(): void {
-        this._kernel.bind(EventDispatcher).asSingleton();
+    public addBindedClasses(classes: Array<Function>): void {
+        this._classes.push(...classes);
     }
 
     public get isActivated(): boolean {
         return this._isActivated;
-    }
-
-    public get modules(): IApplicationModule[] {
-        return this._modules;
     }
 
     public get kernel(): Kernel {

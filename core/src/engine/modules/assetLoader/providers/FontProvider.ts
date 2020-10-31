@@ -1,9 +1,10 @@
 import { AbstractLoaderProvider } from "./AbstractLoaderProvider";
 import { AssetsType } from "../types/AssetsType";
 import { IFontResource } from '../interfaces/IFontResource';
+import { bind } from "../../../../injects/inject";
 import WebFont = require('webfontloader');
 
-
+@bind()
 export class FontProvider extends AbstractLoaderProvider {
 
     protected fontToLoad!: string;

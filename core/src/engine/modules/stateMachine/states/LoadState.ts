@@ -8,7 +8,9 @@ import { ShowLoadSceneAction } from "../../game/actions/ShowLoadSceneAction";
 import { SequenceAction } from "../../../../components/actions/SequenceAction";
 import { PreloadAssetsAction } from "../../game/actions/PreloadAssetsAction";
 import { AbstractState } from "./AbstractState";
+import { bind } from "../../../../injects/inject";
 
+@bind({singleton: true})
 export class LoadState extends AbstractState {
     public name: string = StateType.LoadState;
 

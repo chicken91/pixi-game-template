@@ -1,23 +1,24 @@
 import { EventDispatcher } from "../../../../components/events/EventDispatcher";
-import { getServerModels, inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { ServerRequestFactory } from "../factory/ServerRequestFactory";
-import { IServerModel } from "../../../../components/models/IServerModel";
 import { CoreEvents } from "../../CoreEvents";
 import { AbstractRequest } from "../request/AbstractRequest";
 import { ServerRequestData } from "../data/ServerRequestData";
 import { isNullOrUndefined } from 'util';
-import { ExtendedResponse, IResponse } from '../../CoreTypes';
+import { IExtendedResponse, IResponse } from '../../CoreTypes';
+import { GameModel } from "../../game/model/GameModel";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 
+@bind({singleton: true, priority: CreationPriority.HIGH})
 export class ServerManager {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);
+    protected gameModel: GameModel = inject(GameModel);
     protected serverRequestFactory: ServerRequestFactory = inject(ServerRequestFactory);
-    protected serverModels: Array<IServerModel>;
     protected requestMap: { [requestId: number]: ServerRequestData } = {};
     protected currentRequest: AbstractRequest | undefined;
     protected requestQueue: Array<AbstractRequest> = [];
 
     constructor() {
-        this.serverModels = getServerModels();
         this.addListeners();
     }
 
@@ -30,12 +31,11 @@ export class ServerManager {
         console.log(`%c` + `[ServerManager] get with data bellow:`, `color:#008ae6;font-weight:bold`);
         console.log(data);
 
-        this.updateServerModels(this.updateResponse(data));
+        const extendedResponse = this.updateResponse(data);
+        this.parseResponse(extendedResponse);
         this.invokeRequestCallback(data);
+        this.checkServerError(data);
 
-        if (data.status === "ERROR") {
-            this.onServerError(data)
-        }
         this.currentRequest = undefined;
         this.sendRequestFromQueue();
     }
@@ -57,25 +57,25 @@ export class ServerManager {
     }
 
     protected onConnectionLost(data: IResponse): void {
-        this.onServerError(data);
+        this.checkServerError(data);
         this.dispatcher.dispatch(CoreEvents.LOST_CONNECTION);
     }
 
-    protected onServerError(response: IResponse): void {
-        console.log(`%c` + ` ERROR COMING FROM THE SERVER `, `color:#ff4000;font-weight:bold`);
-        this.dispatcher.dispatch(CoreEvents.SERVER_ERROR, response)
+    protected checkServerError(response: IResponse): void {
+        if (response.status === "ERROR") {
+            console.log(`%c` + ` ERROR COMING FROM THE SERVER `, `color:#ff4000;font-weight:bold`);
+            this.dispatcher.dispatch(CoreEvents.SERVER_ERROR, response);
+        }
     }
 
-    protected updateResponse(data: IResponse): ExtendedResponse {
-        const updatedResponse = data as ExtendedResponse;
+    protected updateResponse(data: IResponse): IExtendedResponse {
+        const updatedResponse = data as IExtendedResponse;
         updatedResponse.request = this.requestMap[data.id];
         return updatedResponse;
     }
 
-    protected updateServerModels(data: ExtendedResponse): void {
-        for (let serverModel of this.serverModels) {
-            serverModel.fetchResponseData(data);
-        }
+    protected parseResponse(data: IExtendedResponse): void {
+
     }
 
     protected getRequestData(serverRequest: ServerRequestData): AbstractRequest {

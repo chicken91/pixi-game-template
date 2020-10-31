@@ -3,15 +3,10 @@
  * Contains all injection data and functionality for one object. *
  */
 export class Injection {
-    // Link on object if it singleton
     private _instance: any;
-    // Flag for singleton object creating
     private _isSingleton: boolean = false;
-    // Constructor for instance creation
+    private _priority: number = 0;
     private _instanceConstructor!: Function;
-    // Flag for a force creating object after initialized all binding class
-    private _isForceCreation: boolean = false;
-    private _isServerModel: boolean = false;
 
     constructor(instanceBindedConstructor: any) {
         this._instanceConstructor = instanceBindedConstructor;
@@ -51,22 +46,11 @@ export class Injection {
         return this;
     }
 
-    public isForceCreation(): boolean {
-        return this._isForceCreation;
+    public get priority(): number {
+        return this._priority;
     }
 
-    public forceCreation(): Injection {
-        this._isForceCreation = true;
-        return this;
-    }
-
-    public isServerModel(): boolean {
-        return this._isServerModel;
-    }
-
-    public asServerModel(): Injection {
-        this._isSingleton = true;
-        this._isServerModel = true;
-        return this;
+    public set priority(value: number) {
+        this._priority = value;
     }
 }

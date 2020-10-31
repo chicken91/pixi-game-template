@@ -1,11 +1,13 @@
 import { EventDispatcher } from "../../../../components/events/EventDispatcher";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { RenderManager } from "./RenderManager";
 import { ScreenModel } from "../model/ScreenModel";
 import { CoreEvents } from "../../CoreEvents";
 import { isNullOrUndefined } from "util";
 import { CoreConstants } from "../../CoreConstants";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 
+@bind({singleton: true, priority: CreationPriority.VERY_HIGH})
 export class ResizeManager {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);
     protected renderManager: RenderManager = inject(RenderManager);

@@ -1,8 +1,10 @@
 import { Application, Container, Renderer } from "pixi.js";
 import { UrlUtils } from '../../game/utils/UrlUtils';
 import { CoreConstants } from '../../CoreConstants';
+import { bind } from "../../../../injects/inject";
 import MIPMAP_MODES = PIXI.MIPMAP_MODES;
 
+@bind({singleton: true})
 export class RenderModel {
     protected _application!: Application;
     protected _fpsMeter!: FPSMeter;

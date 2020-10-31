@@ -1,9 +1,10 @@
 import { AbstractLoaderProvider } from "./AbstractLoaderProvider";
 import { AbstractSound } from "../../sounds/entity/AbstractSound";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { AssetsType } from "../types/AssetsType";
 import { SoundModel } from "../../sounds/models/SoundModel";
 
+@bind()
 export abstract class AbstractSoundProvider extends AbstractLoaderProvider {
     protected soundModel: SoundModel = inject(SoundModel);
 

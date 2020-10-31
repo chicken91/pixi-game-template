@@ -1,15 +1,8 @@
 import { EventEmitter } from "eventemitter3";
+import { bind } from "../../injects/inject";
+import { CreationPriority } from "../../injects/CreationPriority";
 
-/**
- * @class EventDispatcher
- *
- * Provide communication between different next part of application:
- * controllers/managers/actions/states
- *
- * Don`t use it in models and view component!
- * Views communication should be implemented through controllers
- * Models haven`t any events functionality
- */
+@bind({singleton: true, priority: CreationPriority.VERY_HIGH})
 export class EventDispatcher extends EventEmitter {
     public logginEnabled: boolean = false;
 

@@ -4,10 +4,11 @@ import { TextView } from "../../../../components/views/TextView";
 import { BaseParser } from "../parsers/BaseParser";
 import { IView } from '../../../../components/views/IView';
 import { LocaleModel } from "../../locale/models/LocaleModel";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { LayoutModel } from '../models/LayoutModel';
 import { TextStyle } from 'pixi.js';
 
+@bind()
 export class TextBuilder extends BaseBuilder {
     private localeModel: LocaleModel = inject(LocaleModel);
     private layoutModel: LayoutModel = inject(LayoutModel);

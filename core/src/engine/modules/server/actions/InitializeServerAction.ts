@@ -2,7 +2,9 @@ import { Action } from "../../../../components/actions/Action";
 import { ServerRequestType } from "../types/ServerRequestType";
 import { CoreEvents } from "../../CoreEvents";
 import { ServerRequestData } from "../data/ServerRequestData";
+import { bind } from "../../../../injects/inject";
 
+@bind()
 export class InitializeServerAction extends Action {
 
     protected onExecute(): void {

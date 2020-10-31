@@ -1,6 +1,8 @@
 import { IView } from "../../../../components/views/IView";
 import { isNullOrUndefined } from "util";
+import { bind } from "../../../../injects/inject";
 
+@bind({singleton: true})
 export class LayoutPropertiesPool {
     private _treePropertiesPool: { [property: string]: number } = {};
 

@@ -3,7 +3,9 @@ import { BaseBuilder } from "./BaseBuilder";
 import { IView } from "../../../../components/views/IView";
 import { isNullOrUndefined } from "util";
 import { GraphicsView } from "../../../../components/views/GraphicsView";
+import { bind } from "../../../../injects/inject";
 
+@bind()
 export class GraphicsBuilder extends BaseBuilder {
 
     protected createDefault(layout: any, layoutParser: BaseParser): IView {

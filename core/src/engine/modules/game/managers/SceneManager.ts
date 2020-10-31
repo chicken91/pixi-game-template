@@ -1,12 +1,14 @@
 import { LayoutParser } from "../../layout/parsers/LayoutParser";
 import { EventDispatcher } from "../../../../components/events/EventDispatcher";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { IView } from "../../../../components/views/IView";
 import { Size } from "../../screen/instance/Size";
 import { ScreenModel } from "../../screen/model/ScreenModel";
 import { CoreEvents } from "../../CoreEvents";
 import { RenderModel } from "../../screen/model/RenderModel";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 
+@bind({singleton: true, priority: CreationPriority.HIGH})
 export class SceneManager {
     protected layoutParser: LayoutParser = inject(LayoutParser);
     protected renderModel: RenderModel = inject(RenderModel);

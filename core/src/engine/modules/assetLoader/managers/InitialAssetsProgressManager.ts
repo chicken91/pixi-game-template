@@ -1,14 +1,11 @@
 import { EventDispatcher } from "../../../../components/events/EventDispatcher";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { LoadModel } from "../models/LoadModel";
 import { AbstractAssetData } from "../models/data/AbstractAssetData";
 import { CoreEvents } from "../../CoreEvents";
+import { CreationPriority } from "../../../../injects/CreationPriority";
 
-/**
- * @class InitialAssetsProgressManager
- *
- * Handle loaded initial asset and calculate initial loading progress
- */
+@bind({singleton: true, priority: CreationPriority.HIGH})
 export class InitialAssetsProgressManager {
     protected dispatcher: EventDispatcher = inject(EventDispatcher);
     protected loadModel: LoadModel = inject(LoadModel);

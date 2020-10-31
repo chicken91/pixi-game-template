@@ -2,7 +2,9 @@ import { BaseBuilder } from "./BaseBuilder";
 import { BaseParser } from "../parsers/BaseParser";
 import { ContainerView } from "../../../../components/views/ContainerView";
 import { IView } from "../../../../components/views/IView";
+import { bind } from "../../../../injects/inject";
 
+@bind()
 export class ComponentBuilder extends BaseBuilder {
 
     protected createCustom(customClass: any, layout: any, layoutParser: BaseParser): IView {

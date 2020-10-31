@@ -4,9 +4,10 @@ import { spine } from "pixi.js";
 import { SpineModel } from "../../assetLoader/models/SpineModel";
 import { isNullOrUndefined } from "util";
 import { SpineView } from "../../../../components/views/SpineView";
-import { inject } from "../../../../injects/inject";
+import { bind, inject } from "../../../../injects/inject";
 import { IView } from "../../../../components/views/IView";
 
+@bind()
 export class SpineBuilder extends BaseBuilder {
     protected spineModel: SpineModel = inject(SpineModel);
 

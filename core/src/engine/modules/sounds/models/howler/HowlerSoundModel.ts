@@ -1,7 +1,9 @@
 import { SoundModel } from "../SoundModel";
 import { AbstractSound } from "../../entity/AbstractSound";
 import { Howler } from "howler";
+import { bind } from "../../../../../injects/inject";
 
+@bind({bind: SoundModel})
 export class HowlerSoundModel extends SoundModel {
 
     public setVolumeSound(value: number): void {

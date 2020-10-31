@@ -3,7 +3,9 @@ import { BaseParser } from "../parsers/BaseParser";
 import { SpineView } from "../../../../components/views/SpineView";
 import { IView } from "../../../../components/views/IView";
 import { TextInputView } from "../../../../components/views/TextInputView";
+import { bind } from "../../../../injects/inject";
 
+@bind()
 export class TextInputBuilder extends BaseBuilder {
 
     public applyAttributes(element: SpineView, layout: any, layoutParser: BaseParser): void {

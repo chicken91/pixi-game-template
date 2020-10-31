@@ -3,7 +3,9 @@ import { ContainerBuilder } from './ContainerBuilder';
 import { BaseParser } from '../parsers/BaseParser';
 import { IView } from "../../../../components/views/IView";
 import { ToggleButtonsView } from "../../../../components/views/ToggleButtonsView";
+import { bind } from "../../../../injects/inject";
 
+@bind()
 export class ToggleButtonsBuilder extends ContainerBuilder {
     protected createDefault(layout: any, layoutParser: BaseParser): IView {
         return new ToggleButtonsView();

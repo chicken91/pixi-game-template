@@ -1,3 +1,6 @@
+import { bind } from "../../../../injects/inject";
+
+@bind({singleton: true})
 export class LayoutModel {
     private _mainLayout!: any;
     private _fontSettings: string = "Dragons";

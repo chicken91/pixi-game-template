@@ -5,7 +5,9 @@ import { AbstractSoundAssetData } from "./AbstractSoundAssetData";
 import { SpineAssetData } from "./SpineAssetData";
 import { HowlerSoundAssetData } from "../../../sounds/data/HowlerSoundAssetData";
 import { FontAssetData } from './FontAssetData';
+import { bind } from "../../../../../injects/inject";
 
+@bind({singleton: true})
 export class AssetDataFactory {
     public createAssetDataByType(assetType: string): AbstractAssetData {
         switch (assetType) {
