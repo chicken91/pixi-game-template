@@ -8,8 +8,7 @@ const isProduction = nodeEnv === 'production';
 
 const plugins = [
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.DefinePlugin({ __PROD__: isProduction, __PLATFORM__: `"${platform}"`, __DEV__: !isProduction }),
-    new webpack.ProvidePlugin({ PIXI: 'pixi.js' })
+    new webpack.DefinePlugin({ __PROD__: isProduction, __PLATFORM__: `"${platform}"`, __DEV__: !isProduction })
 ];
 
 const webpackModule = {

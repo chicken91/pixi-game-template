@@ -1,4 +1,4 @@
-import { CoreConstants } from "../engine/modules/CoreConstants";
+import { CoreConstants } from "../types/constant/CoreConstants";
 
 export class DeviceUtils {
     public static defineDevice(): void {

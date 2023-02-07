@@ -1,4 +1,4 @@
-import { TemplateActivator } from "./game/TemplateActivator";
+import { TemplateActivator } from "./TemplateActivator";
 
 export function activation(): void {
     let activator = new TemplateActivator();

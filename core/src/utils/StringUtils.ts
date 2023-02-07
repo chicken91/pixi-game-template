@@ -1,4 +1,4 @@
-import { StringReplacement } from '../engine/modules/CoreTypes';
+import { StringReplacement } from '../types/interface/CoreTypes';
 
 export class StringUtils {
     public static replacePatternInText(text: string, patterns: Array<StringReplacement>): string {

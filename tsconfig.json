@@ -14,7 +14,8 @@
     "noEmitHelpers": true,
     "importHelpers": true,
     "noImplicitAny": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "files": [
     "typings/tsd.d.ts"

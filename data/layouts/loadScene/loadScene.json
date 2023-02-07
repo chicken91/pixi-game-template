@@ -1,6 +1,0 @@
-{
-  "loadScene": {"type": "Container", "bindId": "loadView", "children":[
-      {"libId": "loadBackground", "type":"Component"},
-      {"libId": "progressBarView", "type":"Component"}
-  ]}
-}

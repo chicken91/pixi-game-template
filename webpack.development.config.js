@@ -4,9 +4,7 @@ const baseWebpackConfig = require(`${__dirname}/core/data/webpack/webpack.base.c
 const developmentLibraries = [
     `${nodeModules}/fpsmeter/dist/fpsmeter.min.js`,
     `${nodeModules}/gsap/src/index.js`,
-    `${nodeModules}/howler/dist/howler.core.min.js`,
-    `${nodeModules}/pixi.js/dist/pixi.js`,
-    `${__dirname}/core/lib/PIXI.TextInput.js`
+    `${nodeModules}/howler/dist/howler.core.min.js`
 ];
 
 baseWebpackConfig.entry.unshift(...developmentLibraries);

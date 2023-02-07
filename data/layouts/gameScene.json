@@ -1,0 +1,10 @@
+{
+    "gameSceneView": {
+        "bindId": "gameSceneView",
+        "type": "Scene",
+        "background": "red",
+        "children": [
+
+        ]
+    }
+}

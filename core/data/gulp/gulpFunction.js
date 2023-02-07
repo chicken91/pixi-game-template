@@ -53,7 +53,7 @@ const copyData = () => gulp.src(dataFiles)
     .pipe(gulp.dest(buildDirectory));
 
 const audioSprite = () => gulp.src(soundFiles)
-    .pipe(audiosprite({ format: 'howler', export: "ogg,m4a,mp4", output: "template_audio" }))
+    .pipe(audiosprite({ format: 'sound', export: "ogg,m4a,mp4", output: "template_audio" }))
     .pipe(gulp.dest('data/assets/sounds'));
 
 function addFileSize(directoryPath, fileSizeMap) {
